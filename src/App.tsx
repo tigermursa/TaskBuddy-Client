@@ -1,9 +1,9 @@
-
+import MainLayout from "./Components/layout/MainLayout";
 
 const App = () => {
   return (
     <>
-      <h1  className="text-4xl">Vercel Deployment test - 1</h1>
+      <MainLayout />
     </>
   );
 };
