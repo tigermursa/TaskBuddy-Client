@@ -1,7 +1,7 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, MenuProps, theme } from "antd";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   {
@@ -51,13 +51,7 @@ const MainLayout = () => {
         />
       </Sider>
       <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-            border: "2px solid red",
-          }}
-        />
+        {/* backgroundColor:"gray" */}
         <Content style={{ margin: "24px 16px 0", border: "2px solid red" }}>
           <div
             style={{
@@ -70,9 +64,10 @@ const MainLayout = () => {
             children
           </div>
         </Content>
-        <Footer style={{ textAlign: "center", border: "2px solid red" }}>
+        {/* TODO: remove if not needed */}
+        {/* <Footer style={{ textAlign: "center", border: "2px solid red" }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
+        </Footer> */}
       </Layout>
     </Layout>
   );
