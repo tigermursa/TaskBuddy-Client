@@ -1,9 +1,4 @@
-import React from "react";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, MenuProps, theme } from "antd";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -37,10 +32,16 @@ const MainLayout = () => {
           console.log(collapsed, type);
         }}
       >
-        <div style={{
-            color:"white", padding:"2px",textAlign:"center", margin:"10px", fontSize:"24px"
-        }}>
-            <h1>Task Buddy</h1>
+        <div
+          style={{
+            color: "white",
+            padding: "2px",
+            textAlign: "center",
+            margin: "10px",
+            fontSize: "24px",
+          }}
+        >
+          <h1>Task Buddy</h1>
         </div>
         <Menu
           theme="dark"
