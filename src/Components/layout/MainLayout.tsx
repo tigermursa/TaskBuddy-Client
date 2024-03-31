@@ -22,7 +22,7 @@ const MainLayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout style={{ height: "100vh"}}>
       <Sider
         breakpoint="md"
         collapsedWidth="0"
@@ -62,7 +62,7 @@ const MainLayout = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
               <TaskCard />
             </div>
           </div>
