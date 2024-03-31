@@ -6,20 +6,17 @@ import {
 
 import { Tasks } from "../../../types/taskTypes";
 import loader from "../../../assets/images/Ellipsis@1x-1.0s-200px-200px.svg";
-import { useDeleteTaskMutation, useGetTaskDataQuery } from "../../../redux/features/task/taskApi";
+import {
+  useDeleteTaskMutation,
+  useGetTaskDataQuery,
+} from "../../../redux/features/task/taskApi";
 
 const TaskCard = () => {
-  const { data, isFetching, isLoading, isError } = useGetTaskDataQuery("");
+  const { data, isLoading, isError } = useGetTaskDataQuery("");
   const [deleteThis] = useDeleteTaskMutation();
 
   //error handling from redux and loader TODO:UPDATE THE LOADER
   if (isLoading) {
-    return (
-      <div className="">
-        <img className="w-10" src={loader} />
-      </div>
-    );
-  } else if (isFetching) {
     return (
       <div className="">
         <img className="w-10" src={loader} />
@@ -37,20 +34,13 @@ const TaskCard = () => {
   const tasks = data?.data?.tasks || [];
 
   //TODO HAVE TO ADD CONFIRMATION BEFORE DELETE
-  const deleteData = (id:string) => {
+  const deleteData = (id: string) => {
     const options = {
       id: id,
     };
-  
+
     deleteThis(options);
-  
-    // Optionally, you can show a success message after deletion
-    // Swal.fire("Deleted!", "Your data has been deleted.", "success");
   };
-
-
-
-
 
   return (
     <>
@@ -82,7 +72,7 @@ const TaskCard = () => {
                       </button>
                       {/* Delete Button */}
                       <button className="hover:text-red-600">
-                        <DeleteOutlined onClick={()=>deleteData(task._id)} />
+                        <DeleteOutlined onClick={() => deleteData(task._id)} />
                       </button>
                       <button className="hover:text-red-600">
                         <StarOutlined />

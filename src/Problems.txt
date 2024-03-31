@@ -1,2 +1,3 @@
 1) when  task title is longer the task card breaking size so have to make fixed size card
 2) add toaster
+3) when deleting any task it's reloading the page (fixed it)
