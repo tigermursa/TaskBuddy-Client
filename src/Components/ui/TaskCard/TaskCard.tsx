@@ -1,25 +1,27 @@
+import { useState } from "react";
 import {
   DeleteOutlined,
   FormatPainterOutlined,
   StarOutlined,
 } from "@ant-design/icons";
-
 import { Tasks } from "../../../types/taskTypes";
 import loader from "../../../assets/images/Ellipsis@1x-1.0s-200px-200px.svg";
 import {
   useDeleteTaskMutation,
   useGetTaskDataQuery,
 } from "../../../redux/features/task/taskApi";
+import UpdateModal from "../UpdateModal/UpdateModal";
 
 const TaskCard = () => {
   const { data, isLoading, isError } = useGetTaskDataQuery("");
   const [deleteThis] = useDeleteTaskMutation();
+  const [open, setOpen] = useState(false);
 
   //error handling from redux and loader TODO:UPDATE THE LOADER
   if (isLoading) {
     return (
       <div className="">
-        <img className="w-10" src={loader} />
+        <img className="w-10" src={loader} alt="loading" />
       </div>
     );
   } else if (isError) {
@@ -68,9 +70,8 @@ const TaskCard = () => {
                     <button className="button-secondary ">Incomplete</button>
                     <div className="flex gap-4 text-xl">
                       <button className="hover:text-green-600">
-                        <FormatPainterOutlined />
+                        <FormatPainterOutlined onClick={() => setOpen(true)} />
                       </button>
-                      {/* Delete Button */}
                       <button className="hover:text-red-600">
                         <DeleteOutlined onClick={() => deleteData(task._id)} />
                       </button>
@@ -91,6 +92,7 @@ const TaskCard = () => {
           </div>
         </div>
       ))}
+      <UpdateModal open={open} setOpen={setOpen} />
     </>
   );
 };
