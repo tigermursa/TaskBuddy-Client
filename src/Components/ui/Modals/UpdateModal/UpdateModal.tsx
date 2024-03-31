@@ -10,9 +10,9 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ setOpen, open }) => {
   return (
     <>
       <Modal
-        title="Modal 1000px width"
+        title="Update Task"
         centered
-        visible={open} 
+        open={open} 
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         width={500}

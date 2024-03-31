@@ -1,20 +1,20 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, MenuProps, theme } from "antd";
-import TaskCard from "../ui/TaskCard/TaskCard";
+
+import { NavLink, Outlet } from "react-router-dom";
 
 const { Content, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   {
     key: "001",
-    label: "Home",
+    label: <NavLink to={"/all-tasks"}>All Tasks</NavLink>,
     icon: <UserOutlined />,
-    children: [
-      {
-        key: "002",
-        label: "Home 2",
-      },
-    ],
+  },
+  {
+    key: "002",
+    label: <NavLink to={"/completed"}>Completed</NavLink>,
+    icon: <UserOutlined />,
   },
 ];
 const MainLayout = () => {
@@ -56,15 +56,13 @@ const MainLayout = () => {
         <Content style={{ margin: "34px 24px 0" }}>
           <div
             style={{
-               padding: 10,
+              padding: 10,
               minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
           >
-            <div className="grid gap-4 md:gap-7 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
-              <TaskCard />
-            </div>
+            <Outlet />
           </div>
         </Content>
         {/* TODO: remove if not needed */}
