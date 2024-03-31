@@ -1,14 +1,31 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-// //import type { Pokemon } from './types'
-
-// Define a service using a base URL and expected endpoints
 export const baseApi = createApi({
-    reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/v1' }),
-    endpoints: () => ({}),
-})
+    reducerPath: "api",
+    baseQuery: fetchBaseQuery({
+        baseUrl: "https://task-manager-server-seven-plum.vercel.app",
+    }), //the main url link
+    tagTypes: ["tasks"],
+    endpoints: (builder) => ({
+        //getting data from database
+        getTaskData: builder.query({
+            query: () => ({
+                url: `/api/v1/task/get`,
+                method: "GET",
+            }),
+            providesTags: ["tasks"],
+        }),
 
-// // Export hooks for usage in functional components, which are
-// // auto-generated based on the defined endpoints
-// // export const { useGetPokemonByNameQuery } = pokemonApi 
+        //posting task / Create
+
+        //updating task / Update
+
+        //deleting task / Delete
+
+    }),
+});
+
+//CRUD api hooks
+export const {
+    useGetTaskDataQuery,
+} = baseApi;
