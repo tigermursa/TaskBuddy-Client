@@ -53,10 +53,10 @@ const MainLayout = () => {
       </Sider>
       <Layout>
         {/* backgroundColor:"gray" */}
-        <Content style={{ margin: "24px 16px 0", border: "2px solid red" }}>
+        <Content style={{ margin: "34px 24px 0" }}>
           <div
             style={{
-              padding: 24,
+               padding: 10,
               minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,

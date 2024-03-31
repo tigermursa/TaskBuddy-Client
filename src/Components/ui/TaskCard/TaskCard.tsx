@@ -3,12 +3,14 @@ import {
   FormatPainterOutlined,
   StarOutlined,
 } from "@ant-design/icons";
-import { useGetTaskDataQuery } from "../../../redux/api/baseApi";
+
 import { Tasks } from "../../../types/taskTypes";
 import loader from "../../../assets/images/Ellipsis@1x-1.0s-200px-200px.svg";
+import { useDeleteTaskMutation, useGetTaskDataQuery } from "../../../redux/features/task/taskApi";
 
 const TaskCard = () => {
   const { data, isFetching, isLoading, isError } = useGetTaskDataQuery("");
+  const [deleteThis] = useDeleteTaskMutation();
 
   //error handling from redux and loader TODO:UPDATE THE LOADER
   if (isLoading) {
@@ -33,6 +35,22 @@ const TaskCard = () => {
 
   // Ensure data is available and tasks array exists
   const tasks = data?.data?.tasks || [];
+
+  //TODO HAVE TO ADD CONFIRMATION BEFORE DELETE
+  const deleteData = (id:string) => {
+    const options = {
+      id: id,
+    };
+  
+    deleteThis(options);
+  
+    // Optionally, you can show a success message after deletion
+    // Swal.fire("Deleted!", "Your data has been deleted.", "success");
+  };
+
+
+
+
 
   return (
     <>
@@ -62,8 +80,9 @@ const TaskCard = () => {
                       <button className="hover:text-green-600">
                         <FormatPainterOutlined />
                       </button>
+                      {/* Delete Button */}
                       <button className="hover:text-red-600">
-                        <DeleteOutlined />
+                        <DeleteOutlined onClick={()=>deleteData(task._id)} />
                       </button>
                       <button className="hover:text-red-600">
                         <StarOutlined />

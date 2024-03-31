@@ -1,31 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const baseApi = createApi({
-    reducerPath: "api",
+    reducerPath: 'baseApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://task-manager-server-seven-plum.vercel.app",
-    }), //the main url link
-    tagTypes: ["tasks"],
-    endpoints: (builder) => ({
-        //getting data from database
-        getTaskData: builder.query({
-            query: () => ({
-                url: `/api/v1/task/get`,
-                method: "GET",
-            }),
-            providesTags: ["tasks"],
-        }),
-
-        //posting task / Create
-
-        //updating task / Update
-
-        //deleting task / Delete
-
+        baseUrl: 'https://task-manager-server-seven-plum.vercel.app',
+        credentials: 'same-origin',
     }),
+    tagTypes: ["tasks"],
+    endpoints: () => ({}),
 });
-
-//CRUD api hooks
-export const {
-    useGetTaskDataQuery,
-} = baseApi;
