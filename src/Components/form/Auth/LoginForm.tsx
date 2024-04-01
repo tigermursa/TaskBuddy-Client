@@ -91,7 +91,7 @@ const LoginForm: React.FC = () => {
             <button
               onClick={() => toast}
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-md"
+              className="btn-optional"
             >
               Login
             </button>
