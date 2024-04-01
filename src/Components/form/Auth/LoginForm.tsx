@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import { NavLink, useNavigate } from "react-router-dom";
+import { setToLocalStorage } from "../../../utils/local-storage";
 
 interface FormData {
   email: string;
@@ -24,7 +25,7 @@ const LoginForm: React.FC = () => {
       if ("data" in response && response.data.success) {
         console.log(response.data.message);
         reset();
-        localStorage.setItem("token", response.data.token);
+        setToLocalStorage("token", response.data.token);
         navigate("/");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

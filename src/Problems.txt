@@ -3,3 +3,4 @@
 3) when deleting any task it's reloading the page (fixed it)
 4) show the server backend errors on the ui
 5) add category select options
+6) Don't forget to clear all console!

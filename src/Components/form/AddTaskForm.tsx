@@ -1,16 +1,21 @@
 import { useForm } from "react-hook-form";
 import { useAddTaskMutation } from "../../redux/features/task/taskApi";
+import { useEffect, useState } from "react";
+import { decodedToken } from "../../utils/jwt";
+import { getFromLocalStorage } from "../../utils/local-storage";
 
 interface FormData {
   title: string;
   description: string;
   deadline: string;
+  email: string;
   category: "personal" | "official" | "family";
 }
 
 interface AddModalProps {
   setOpen: (open: boolean) => void;
 }
+
 const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
   const {
     register,
@@ -19,16 +24,41 @@ const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
     formState: { errors },
   } = useForm<FormData>();
   const [addData, { isLoading }] = useAddTaskMutation();
+  const [email, setEmail] = useState<string>("");
+
+  // Inside your AddTaskForm component
+  useEffect(() => {
+    // Retrieve token from local storage
+    const token = getFromLocalStorage("token");
+    if (token) {
+      // Decode token to get email value
+      const decoded = decodedToken(token);
+      setEmail(decoded.email);
+    }
+  }, []);
 
   const onSubmit = async (data: FormData) => {
     try {
-      await addData(data);
-      console.log("Data added successfully!");
-      console.log(data);
-      reset();
-      setOpen(false);
-    } catch (error) {
-      console.error("Error adding data:", error);
+      const response = await addData(data);
+      //error=response.data.error&message
+      //success=response.data.message$success
+      if ("data" in response && response.data.success) {
+        setOpen(false);
+        console.log(response.data.message);
+        console.log(data);
+
+        reset();
+      } else if ("data" in response && response.data.error) {
+        console.log(response.data.error);
+        console.log(response.data.message);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if ("error" in error) {
+        console.log(error.error.status, error.error.message);
+      } else {
+        console.error("Error adding data");
+      }
     }
   };
 
@@ -112,6 +142,23 @@ const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
             className="mt-1 p-2 border rounded-md w-full"
           />
           {renderError("deadline")}
+        </div>
+        <div className="mb-4 hidden">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            {...register("email", { required: true })}
+            value={email} // Set the value of the email input
+            readOnly // Make the input read-only to prevent user modification
+            className="mt-1 p-2 border rounded-md w-full"
+          />
+          {renderError("email")}
         </div>
 
         <div className="mt-6">
