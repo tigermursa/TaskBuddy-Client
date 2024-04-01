@@ -11,13 +11,15 @@ const authApi = baseApi.injectEndpoints({
                 body: data,
             }),
         }),
+        login: builder.mutation({
+            query: (data) => ({
+                url: `/user/login`,
+                method: "POST",
+                body: data,
+            }),
+        }),
     }),
 });
 
 // api hooks
-export const {
-
-    useRegisterMutation,
-
-
-} = authApi;
+export const { useRegisterMutation, useLoginMutation } = authApi;

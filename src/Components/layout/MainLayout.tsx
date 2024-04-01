@@ -16,13 +16,18 @@ const items: MenuProps["items"] = [
     label: <NavLink to={"/completed"}>Completed</NavLink>,
     icon: <UserOutlined />,
   },
+  {
+    key: "003",
+    label: <NavLink to={"/register"}>User</NavLink>,
+    icon: <UserOutlined />,
+  },
 ];
 const MainLayout = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout style={{ height: "100%" }}>
       <Sider
         breakpoint="md"
         collapsedWidth="0"
@@ -53,7 +58,7 @@ const MainLayout = () => {
       </Sider>
       <Layout>
         {/* backgroundColor:"gray" */}
-        <Content style={{ margin: "34px 24px 0" }}>
+        <Content style={{ margin: "10px 24px 0" }}>
           <div
             style={{
               padding: 10,
