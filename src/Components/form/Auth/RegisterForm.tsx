@@ -2,12 +2,7 @@ import { useForm } from "react-hook-form";
 import { useRegisterMutation } from "../../../redux/features/auth/authApi";
 import { NavLink } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
-interface FormData {
-  name: string;
-  userImage: string;
-  email: string;
-  password: string;
-}
+import { RegistrationFormData } from "../../../types/taskTypes";
 
 const RegisterForm: React.FC = () => {
   const {
@@ -15,10 +10,10 @@ const RegisterForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<RegistrationFormData>();
   const [addData] = useRegisterMutation();
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: RegistrationFormData) => {
     try {
       const response = await addData(data);
 
@@ -33,7 +28,7 @@ const RegisterForm: React.FC = () => {
     }
   };
 
-  const renderError = (fieldName: keyof FormData) => {
+  const renderError = (fieldName: keyof RegistrationFormData) => {
     if (errors[fieldName]?.type === "required") {
       return <p className="text-red-500">{`${fieldName} is required`}</p>;
     }

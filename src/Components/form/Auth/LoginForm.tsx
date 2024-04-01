@@ -2,11 +2,8 @@ import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { setToLocalStorage } from "../../../utils/local-storage";
-import { toast, Toaster } from "react-hot-toast";
-interface FormData {
-  email: string;
-  password: string;
-}
+import toast, { Toaster } from "react-hot-toast";
+import { FormData } from "../../../types/taskTypes";
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -21,20 +18,20 @@ const LoginForm: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const response = await addData(data);
-
+      console.log(response);
       if ("data" in response && response.data.success) {
+        setToLocalStorage("token", response.data.token);
         toast(response.data.message);
         reset();
-        setToLocalStorage("token", response.data.token);
         navigate("/");
+      } else if ("error" in response && response.error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        toast.error((response.error as { data: any }).data.message);
       }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      if ("error" in error) {
-        console.log(error.error.status, error.error.message);
-      } else {
-        console.error("Error adding data");
-      }
+      console.error("Error adding data:", error);
     }
   };
 
@@ -92,6 +89,7 @@ const LoginForm: React.FC = () => {
           </div>
           <div className="mt-6 flex justify-center">
             <button
+              onClick={() => toast}
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded-md"
             >

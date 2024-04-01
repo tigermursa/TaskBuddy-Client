@@ -32,6 +32,26 @@ const taskApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["tasks"], //for make fetch after the action
         }),
+
+        //important task / Delete
+        important: builder.mutation({
+            query: (options) => ({
+                url: `/api/v1/task/${options.id}`,
+                method: "PUT",
+                body: options.data,
+            }),
+            invalidatesTags: ["tasks"], //for make fetch after the action
+        }),
+        //Status task / Delete
+        status: builder.mutation({
+            query: (options) => ({
+                url: `/api/v1/task/status/${options.id}`,
+                method: "PUT",
+                body: options.data,
+            }),
+            invalidatesTags: ["tasks"], //for make fetch after the action
+        }),
+
         //updating task / Update
         updateTask: builder.mutation({
             query: (options) => ({
@@ -51,6 +71,7 @@ export const {
     useGetTaskDataQuery,
     useAddTaskMutation,
     useDeleteTaskMutation,
-    useUpdateTaskMutation
-
+    useUpdateTaskMutation,
+    useImportantMutation,
+    useStatusMutation
 } = taskApi;
