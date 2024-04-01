@@ -1,15 +1,14 @@
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface FormData {
-  name: string;
-  userImage: string;
   email: string;
   password: string;
 }
 
 const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,12 +19,21 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await addData(data);
-      console.log("Data added successfully!");
-      console.log(data);
-      reset();
-    } catch (error) {
-      console.error("Error adding data:", error);
+      const response = await addData(data);
+
+      if ("data" in response && response.data.success) {
+        console.log(response.data.message);
+        reset();
+        localStorage.setItem("token", response.data.token);
+        navigate("/");
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if ("error" in error) {
+        console.log(error.error.status, error.error.message);
+      } else {
+        console.error("Error adding data");
+      }
     }
   };
 
@@ -83,7 +91,7 @@ const LoginForm: React.FC = () => {
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded-md"
             >
-              Register
+              Login
             </button>
           </div>
         </form>
