@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { setToLocalStorage } from "../../../utils/local-storage";
-
+import { toast, Toaster } from "react-hot-toast";
 interface FormData {
   email: string;
   password: string;
@@ -23,7 +23,7 @@ const LoginForm: React.FC = () => {
       const response = await addData(data);
 
       if ("data" in response && response.data.success) {
-        console.log(response.data.message);
+        toast(response.data.message);
         reset();
         setToLocalStorage("token", response.data.token);
         navigate("/");
@@ -50,6 +50,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="container mx-auto h-screen flex flex-col justify-center items-center">
+      <Toaster />
       <h1 className="text-2xl">Login your Account</h1>
       <div className=" w-[500px] shadow-xl p-4 rounded-lg  mt-5 border ">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,7 +62,7 @@ const LoginForm: React.FC = () => {
               Email
             </label>
             <input
-            defaultValue={"tasinmir20@gmail.com"}
+              defaultValue={"tasinmir20@gmail.com"}
               type="email"
               id="email"
               {...register("email", { required: true })}
@@ -77,7 +78,7 @@ const LoginForm: React.FC = () => {
               Password
             </label>
             <input
-            defaultValue={"456654456"}
+              defaultValue={"456654456"}
               type="password"
               id="password"
               {...register("password", { required: true })}
