@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import { LoggedIn } from "../../../utils/isUserLoggedIn";
@@ -16,7 +15,6 @@ const items: MenuProps["items"] = [
 ];
 
 const DropdownComponent: React.FC = () => {
-  const [isLoggedIn] = useState(!!localStorage.getItem("token"));
   const userData = LoggedIn();
   return (
     <>
@@ -26,7 +24,7 @@ const DropdownComponent: React.FC = () => {
         arrow={{ pointAtCenter: true }}
       >
         <div>
-          {isLoggedIn ? (
+          {userData ? (
             <>
               <div className="flex items-center flex-col gap-3 justify-center mt-5 lg:mb-[4rem]">
                 <img
