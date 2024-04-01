@@ -1,11 +1,7 @@
 import React from "react";
 import { Button, Modal } from "antd";
 import AddTaskForm from "../../../form/AddTaskForm";
-
-interface AddModalProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-}
+import { AddModalProps } from "../../../../types/taskTypes";
 
 const AddModal: React.FC<AddModalProps> = ({ setOpen, open }) => {
   return (

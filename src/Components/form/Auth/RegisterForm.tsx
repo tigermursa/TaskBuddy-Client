@@ -39,10 +39,10 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto h-screen flex flex-col justify-center items-center">
+    <div className="container mx-auto h-screen flex flex-col justify-center items-center ">
       <Toaster />
       <h1 className="text-2xl">Create Your Account</h1>
-      <div className=" w-[500px] shadow-xl p-4 rounded-lg border mt-5">
+      <div className="  max-w-[500px] shadow-xl p-4 rounded-lg border mt-5">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label

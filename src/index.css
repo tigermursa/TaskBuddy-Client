@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 /* font */
 * {
   font-family: "Ubuntu", sans-serif;
@@ -92,11 +94,9 @@
   text-decoration: none;
 }
 
-
 .btn-primary:active {
   transform: scale(0.95);
 }
-
 
 /* Button-Secondary */
 .btn-secondary {
@@ -134,7 +134,6 @@
 .btn-secondary:active {
   transform: scale(0.95);
 }
-
 
 /* Button-Secondary */
 .btn-optional {

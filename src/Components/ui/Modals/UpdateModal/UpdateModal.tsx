@@ -1,12 +1,6 @@
 import { Button, Modal } from "antd";
 import UpdateTaskForm from "../../../form/UpdateTaskForm";
-import { Tasks } from "../../../../types/taskTypes";
-
-interface UpdateModalProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  selectedTask: Tasks | null;
-}
+import { UpdateModalProps } from "../../../../types/taskTypes";
 
 const UpdateModal: React.FC<UpdateModalProps> = ({
   setOpen,

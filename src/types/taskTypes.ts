@@ -28,3 +28,24 @@ export interface RegistrationFormData {
     email: string;
     password: string;
 }
+
+
+export interface TaskDataProps {
+    data: Tasks[];
+    isLoading: boolean;
+    isError: boolean;
+}
+
+
+export interface AddModalProps {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+}
+
+
+export interface UpdateModalProps {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    selectedTask: Tasks | null;
+  }
+  

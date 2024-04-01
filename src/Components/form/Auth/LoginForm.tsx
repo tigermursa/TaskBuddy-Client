@@ -49,7 +49,7 @@ const LoginForm: React.FC = () => {
     <div className="container mx-auto h-screen flex flex-col justify-center items-center">
       <Toaster />
       <h1 className="text-2xl">Login your Account</h1>
-      <div className=" w-[500px] shadow-xl p-4 rounded-lg  mt-5 border ">
+      <div className=" max-w-[500px] shadow-xl p-4 rounded-lg  mt-5 border ">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4 pt-5">
             <label

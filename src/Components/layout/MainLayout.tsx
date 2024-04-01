@@ -19,7 +19,12 @@ const items: MenuProps["items"] = [
   },
   {
     key: "003",
-    label: <NavLink to={"/register"}>User</NavLink>,
+    label: <NavLink to={"/important"}>Important</NavLink>,
+    icon: <UserOutlined />,
+  },
+  {
+    key: "004",
+    label: <NavLink to={"/login"}>User</NavLink>,
     icon: <UserOutlined />,
   },
 ];

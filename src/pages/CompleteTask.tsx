@@ -2,7 +2,7 @@
 
 const CompleteTask = () => {
     return (
-        <div>
+        <div className="h-screen">
             <p>Show Completed Tasks here</p>
         </div>
     );

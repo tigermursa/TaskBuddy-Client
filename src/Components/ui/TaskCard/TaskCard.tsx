@@ -5,18 +5,18 @@ import { DeleteOutlined, FormatPainterOutlined } from "@ant-design/icons";
 import loader from "../../../assets/images/Ellipsis@1x-1.0s-200px-200px.svg";
 import {
   useDeleteTaskMutation,
-  useGetTaskDataQuery,
   useImportantMutation,
   useStatusMutation,
 } from "../../../redux/features/task/taskApi";
 import UpdateModal from "../Modals/UpdateModal/UpdateModal";
 import AddTaskCard from "../AddTaskCard/AddTaskCard";
-import { Tasks } from "../../../types/taskTypes";
+import { TaskDataProps, Tasks } from "../../../types/taskTypes";
 import { toast, Toaster } from "react-hot-toast";
 import { FaRegStar, FaStar } from "react-icons/fa";
-const TaskCard = () => {
-  // Data getting hook from rtk query
-  const { data, isLoading, isError } = useGetTaskDataQuery("");
+
+const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
+  console.log(isLoading);
+
   // DELETE hook from rtk query
   const [deleteThis] = useDeleteTaskMutation();
   // add task important hook from rtk query
@@ -33,18 +33,14 @@ const TaskCard = () => {
     return (
       <div className="">
         <img className="w-10" src={loader} alt="loading" />
+        <p>Loading hard</p>
       </div>
     );
   } else if (isError) {
     return (
-      <div className="flex h-screen justify-center  text-red-500 text-xl font-extrabold font-mono">
-        <p className="flex  gap-2">ERROR! SOMETHING WENT WRONG !</p>
-      </div>
+      <div className="flex h-screen justify-center  text-red-500 text-xl font-extrabold font-mono"></div>
     );
   }
-
-  // Ensure data is available and tasks array exists
-  const tasks = data?.data?.tasks || [];
 
   //Delete Function
   const deleteData = async (id: string) => {
@@ -87,7 +83,7 @@ const TaskCard = () => {
     <>
       <div className="grid gap-4 md:gap-7 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
         <Toaster />
-        {tasks?.map((task: Tasks) => (
+        {data?.map((task: Tasks) => (
           <div key={task._id} className="relative">
             <div className="border max-w-[20rem] h-[11rem] lg:max-w-[24rem] p-4 rounded-md shadow-md shadow-gray-600">
               <div>

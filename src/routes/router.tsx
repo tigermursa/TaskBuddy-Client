@@ -5,6 +5,7 @@ import App from "../App";
 import RegisterForm from "../Components/form/Auth/RegisterForm";
 import LoginForm from "../Components/form/Auth/LoginForm";
 import ProtectedRouteProvider from "../lib/Provider/ProtectedRouteProvider";
+import ImportantTask from "../pages/ImportantTask";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/completed",
         element: <CompleteTask />,
+      },
+      {
+        path: "/important",
+        element: <ImportantTask />,
       },
     ],
   },

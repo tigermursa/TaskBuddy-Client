@@ -4,4 +4,9 @@
 4) show the server backend errors on the ui (fixed it)
 5) add category select options (fixed it)
 6) Don't forget to clear all console! 
-7) fix the width of login and register form
+7) fix the width of login and register form(fixed it)
+8) show completed task 
+9) show important task 
+10) backend pagination
+11) add user image using cloud
+
