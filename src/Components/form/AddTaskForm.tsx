@@ -39,6 +39,9 @@ const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
 
   const onSubmit = async (data: FormData) => {
     try {
+      // Include email from state
+      data.email = email;
+
       const response = await addData(data);
       //error=response.data.error&message
       //success=response.data.message$success
@@ -142,23 +145,6 @@ const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
             className="mt-1 p-2 border rounded-md w-full"
           />
           {renderError("deadline")}
-        </div>
-        <div className="mb-4 hidden">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            {...register("email", { required: true })}
-            value={email} // Set the value of the email input
-            readOnly // Make the input read-only to prevent user modification
-            className="mt-1 p-2 border rounded-md w-full"
-          />
-          {renderError("email")}
         </div>
 
         <div className="mt-6">

@@ -1,6 +1,6 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, MenuProps, theme } from "antd";
-
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const { Content, Sider } = Layout;
@@ -23,9 +23,17 @@ const items: MenuProps["items"] = [
   },
 ];
 const MainLayout = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+
   return (
     <Layout style={{ height: "100%" }}>
       <Sider
@@ -47,7 +55,18 @@ const MainLayout = () => {
             fontSize: "24px",
           }}
         >
-          <h1>Task Buddy</h1>
+          {isLoggedIn ? <h1>Mursalin</h1> : <h1>Task Buddy</h1>}
+
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="text-xs p-1 bg-slate-500 bg-transparent border rounded-md"
+            >
+              Logout
+            </button>
+          ) : (
+            ""
+          )}
         </div>
         <Menu
           theme="dark"
