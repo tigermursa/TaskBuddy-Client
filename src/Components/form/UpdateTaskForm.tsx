@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useUpdateTaskMutation } from "../../redux/features/task/taskApi";
 import { Tasks } from "../../types/taskTypes";
-
+import { toast, Toaster } from "react-hot-toast";
 interface FormData {
   title: string;
   description: string;
@@ -17,7 +17,6 @@ const UpdateTaskForm: React.FC<AddModalProps> = ({
   setOpen,
   defaultValues,
 }) => {
-  
   // const { data } = useGetTaskDataQuery(id);
 
   //console.log("from update form", defaultValues); //success✔
@@ -28,11 +27,16 @@ const UpdateTaskForm: React.FC<AddModalProps> = ({
     formState: { errors },
   } = useForm<FormData>();
   const [updateData, { isLoading }] = useUpdateTaskMutation();
-const id = defaultValues?._id
+  const id = defaultValues?._id;
   const onSubmit = async (data: FormData) => {
     try {
-      await updateData({ id, data });
-      setOpen(false);
+      const response = await updateData({ id, data });
+      if ("data" in response && response.data.success) {
+        setOpen(false);
+        toast(response.data.message);
+      } else if ("data" in response && response.data.error) {
+        toast(response.data.error);
+      }
     } catch (error) {
       console.error("Update failed:", error);
     }
@@ -50,8 +54,9 @@ const id = defaultValues?._id
 
   return (
     <div>
+      <Toaster />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
+        <div className="mb-4 mt-4">
           <label
             htmlFor="title"
             className="block text-sm font-medium text-gray-600"

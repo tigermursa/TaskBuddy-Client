@@ -18,14 +18,16 @@ const AddModal: React.FC<AddModalProps> = ({ setOpen, open }) => {
         onCancel={() => setOpen(false)}
         width={500}
         footer={[
-          <Button key="cancel" onClick={() => setOpen(false)} className="hidden">
+          <Button
+            key="cancel"
+            onClick={() => setOpen(false)}
+            className="hidden"
+          >
             Close
           </Button>,
         ]}
       >
-        <div className=" flex justify-center items-center">
-          <AddTaskForm  setOpen={setOpen} />
-        </div>
+        <AddTaskForm setOpen={setOpen} />
       </Modal>
     </>
   );

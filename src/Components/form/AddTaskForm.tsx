@@ -48,7 +48,7 @@ const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
       //success=response.data.message$success
       if ("data" in response && response.data.success) {
         setOpen(false);
-         toast(response.data.message);
+        toast(response.data.message);
 
         reset();
       } else if ("data" in response && response.data.error) {
@@ -76,9 +76,9 @@ const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
 
   return (
     <div>
-      <Toaster />
+      <Toaster/>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
+        <div className="mb-4 mt-5">
           <label
             htmlFor="title"
             className="block text-sm font-medium text-gray-600"

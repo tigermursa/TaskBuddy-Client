@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRegisterMutation } from "../../../redux/features/auth/authApi";
 import { NavLink } from "react-router-dom";
-
+import { toast, Toaster } from "react-hot-toast";
 interface FormData {
   name: string;
   userImage: string;
@@ -20,10 +20,14 @@ const RegisterForm: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await addData(data);
-      console.log("Data added successfully!");
-      console.log(data);
-      reset();
+      const response = await addData(data);
+
+      if ("data" in response && response.data.success) {
+        toast(response.data.message);
+        reset();
+      } else if ("data" in response && response.data.error) {
+        toast(response.data.error);
+      }
     } catch (error) {
       console.error("Error adding data:", error);
     }
@@ -41,6 +45,7 @@ const RegisterForm: React.FC = () => {
 
   return (
     <div className="container mx-auto h-screen flex flex-col justify-center items-center">
+      <Toaster />
       <h1 className="text-2xl">Create Your Account</h1>
       <div className=" w-[500px] shadow-xl p-4 rounded-lg border mt-5">
         <form onSubmit={handleSubmit(onSubmit)}>
