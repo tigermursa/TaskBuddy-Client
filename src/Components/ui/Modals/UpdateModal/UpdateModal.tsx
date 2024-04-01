@@ -1,28 +1,35 @@
-import React from "react";
 import { Button, Modal } from "antd";
+import UpdateTaskForm from "../../../form/UpdateTaskForm";
+import { Tasks } from "../../../../types/taskTypes";
 
 interface UpdateModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  selectedTask: Tasks | null;
 }
 
-const UpdateModal: React.FC<UpdateModalProps> = ({ setOpen, open }) => {
+const UpdateModal: React.FC<UpdateModalProps> = ({
+  setOpen,
+  open,
+  selectedTask,
+}) => {
+  // console.log("from um",selectedTask); success✔
   return (
     <>
       <Modal
         title="Update Task"
         centered
-        open={open} 
+        open={open}
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         width={500}
         footer={[
           <Button key="cancel" onClick={() => setOpen(false)}>
             Close
-          </Button>
+          </Button>,
         ]}
       >
-        <p>FORM COMING SOON</p>
+        <UpdateTaskForm setOpen={setOpen} defaultValues={selectedTask} />
       </Modal>
     </>
   );

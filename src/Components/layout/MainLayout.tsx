@@ -8,7 +8,7 @@ const { Content, Sider } = Layout;
 const items: MenuProps["items"] = [
   {
     key: "001",
-    label: <NavLink to={"/all-tasks"}>All Tasks</NavLink>,
+    label: <NavLink to={"/"}>All Tasks</NavLink>,
     icon: <UserOutlined />,
   },
   {

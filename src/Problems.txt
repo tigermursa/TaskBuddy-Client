@@ -1,5 +1,5 @@
 1) when  task title is longer the task card breaking size so have to make fixed size card (fixed it)
 2) add proper  toaster where necessary
 3) when deleting any task it's reloading the page (fixed it)
-4) show the server errors on the ui
+4) show the server backend errors on the ui
 5) add category select options

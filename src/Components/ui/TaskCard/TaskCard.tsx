@@ -1,10 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   DeleteOutlined,
   FormatPainterOutlined,
   StarOutlined,
 } from "@ant-design/icons";
-import { Tasks } from "../../../types/taskTypes";
+
 import loader from "../../../assets/images/Ellipsis@1x-1.0s-200px-200px.svg";
 import {
   useDeleteTaskMutation,
@@ -20,8 +20,10 @@ const TaskCard = () => {
   const [deleteThis] = useDeleteTaskMutation();
   // MODAL STATE
   const [open, setOpen] = useState(false);
+  //task state
+  const [selectedTask, setSelectedTask] = useState(null);
 
-  // Error handling from redux and loader 
+  // Error handling from redux and loader
   if (isLoading) {
     return (
       <div className="">
@@ -48,6 +50,13 @@ const TaskCard = () => {
     deleteThis(options);
   };
 
+  // Function to handle update button click
+  const handleUpdateClick = (task) => {
+    setSelectedTask(task); 
+    // console.log(task); success✔
+    setOpen(true);
+  };
+
   return (
     <>
       <div className="grid gap-4 md:gap-7 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
@@ -56,12 +65,12 @@ const TaskCard = () => {
             <div className="border max-w-[20rem] h-[11rem] lg:max-w-[24rem] p-4 rounded-md shadow-md shadow-gray-600">
               <div>
                 <div className="flex justify-between items-center ">
-                  <h1 className=" text-lg md:text-xl font-semibold">
+                  <h1 className=" text-lg md:text-xl font-semibold truncate">
                     {task.title}
                   </h1>
                 </div>
 
-                <p className=" text-xs text-gray-700 mb-5 mt-2">
+                <p className=" text-xs text-gray-700 mb-5 mt-2 truncate">
                   {task.description}
                 </p>
 
@@ -74,17 +83,19 @@ const TaskCard = () => {
                     <div className="flex justify-between  w-[900]">
                       <button className="button-secondary ">Incomplete</button>
                       <div className="flex gap-4 text-xl">
+                        {/* Update button */}
                         <button className="hover:text-green-600">
                           <FormatPainterOutlined
-                            onClick={() => setOpen(true)}
+                            onClick={() => handleUpdateClick(task)}
                           />
                         </button>
+                        {/* delete button */}
                         <button className="hover:text-red-600">
                           <DeleteOutlined
                             onClick={() => deleteData(task._id)}
                           />
                         </button>
-                        <button className="hover:text-red-600">
+                        <button className="hover:text-red-600 text-orange-300 ">
                           <StarOutlined />
                         </button>
                       </div>
@@ -105,7 +116,7 @@ const TaskCard = () => {
         <div className="hidden md:col-span-2 lg:col-span-3 xl:col-span-4" />
         <AddTaskCard />
       </div>
-      <UpdateModal open={open} setOpen={setOpen} />
+      <UpdateModal open={open} setOpen={setOpen} selectedTask={selectedTask} />
     </>
   );
 };

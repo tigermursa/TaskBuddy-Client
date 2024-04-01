@@ -3,23 +3,22 @@ import AllTask from "../pages/AllTask";
 import CompleteTask from "../pages/CompleteTask";
 import App from "../App";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children:[
+    children: [
       {
-        path: "/all-tasks",
+        index: true,
+        path: "/",
         element: <AllTask />,
       },
       {
         path: "/completed",
         element: <CompleteTask />,
       },
-    ]
+    ],
   },
- 
 ]);
 
 export default router;
