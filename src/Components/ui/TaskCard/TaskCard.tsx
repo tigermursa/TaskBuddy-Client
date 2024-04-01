@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   DeleteOutlined,
   FormatPainterOutlined,
@@ -12,6 +12,7 @@ import {
 } from "../../../redux/features/task/taskApi";
 import UpdateModal from "../Modals/UpdateModal/UpdateModal";
 import AddTaskCard from "../AddTaskCard/AddTaskCard";
+import { Tasks } from "../../../types/taskTypes";
 
 const TaskCard = () => {
   // Data getting hook from rtk query
@@ -21,7 +22,7 @@ const TaskCard = () => {
   // MODAL STATE
   const [open, setOpen] = useState(false);
   //task state
-  const [selectedTask, setSelectedTask] = useState(null);
+  const [selectedTask, setSelectedTask] = useState<Tasks | null>(null);
 
   // Error handling from redux and loader
   if (isLoading) {
@@ -51,8 +52,8 @@ const TaskCard = () => {
   };
 
   // Function to handle update button click
-  const handleUpdateClick = (task) => {
-    setSelectedTask(task); 
+  const handleUpdateClick = (task:Tasks) => {
+    setSelectedTask(task);
     // console.log(task); success✔
     setOpen(true);
   };
