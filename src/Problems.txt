@@ -1,6 +1,7 @@
 1) when  task title is longer the task card breaking size so have to make fixed size card (fixed it)
-2) add proper  toaster where necessary
+2) add proper  toaster where necessary (fixed it)
 3) when deleting any task it's reloading the page (fixed it)
-4) show the server backend errors on the ui
-5) add category select options
-6) Don't forget to clear all console!
+4) show the server backend errors on the ui (fixed it)
+5) add category select options (fixed it)
+6) Don't forget to clear all console! 
+7) fix the width of login and register form

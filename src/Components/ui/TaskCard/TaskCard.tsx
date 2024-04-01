@@ -111,14 +111,14 @@ const TaskCard = () => {
                       {task.status ? (
                         <button
                           onClick={() => complete(task._id)}
-                          className="button-primary "
+                          className={"btn-primary"}
                         >
                           Complete
                         </button>
                       ) : (
                         <button
                           onClick={() => complete(task._id)}
-                          className="button-secondary "
+                          className="btn-secondary "
                         >
                           Incomplete
                         </button>
@@ -159,8 +159,18 @@ const TaskCard = () => {
               </div>
             </div>
             {/* Category tag positioned in top-right corner */}
-            <div className="absolute -top-6 -left-5 mt-2 mr-2 z-20">
-              <h1 className="border bg-red-600 p-1 pe-2 ps-2 rounded-md text-gray-100 text-xs">
+            <div className="absolute -top-6 -right-5 mt-2 mr-2 z-20">
+              <h1
+                className={`border p-1 pe-2 ps-2 rounded-md text-gray-100 text-xs ${
+                  task.category === "personal"
+                    ? "bg-blue-600"
+                    : task.category === "family"
+                    ? "bg-purple-600"
+                    : task.category === "official"
+                    ? "bg-red-600"
+                    : ""
+                }`}
+              >
                 {task.category}
               </h1>
             </div>
