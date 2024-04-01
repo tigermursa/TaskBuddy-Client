@@ -1,8 +1,9 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, MenuProps, theme } from "antd";
-import { useState } from "react";
+
 import { NavLink, Outlet } from "react-router-dom";
-import { LoggedIn } from "../../utils/isUserLoggedIn";
+
+import DropdownComponent from "../ui/Dropdown/ProfileDropdown";
 
 const { Content, Sider } = Layout;
 
@@ -28,31 +29,15 @@ const items: MenuProps["items"] = [
     icon: <UserOutlined />,
   },
 ];
+
 const MainLayout = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-  const userData = LoggedIn();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    window.location.reload();
-  };
-
   return (
     <Layout style={{ height: "100%" }}>
-      <Sider
-        breakpoint="md"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
+      <Sider breakpoint="md" collapsedWidth="0">
         <div
           style={{
             color: "white",
@@ -62,22 +47,7 @@ const MainLayout = () => {
             fontSize: "24px",
           }}
         >
-          {isLoggedIn ? (
-            <h1>{userData?.email.slice(0, 4)}</h1>
-          ) : (
-            <h1>Task Buddy</h1>
-          )}
-
-          {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="text-xs p-1 bg-slate-500 bg-transparent border rounded-md"
-            >
-              Logout
-            </button>
-          ) : (
-            ""
-          )}
+          <DropdownComponent />
         </div>
         <Menu
           theme="dark"

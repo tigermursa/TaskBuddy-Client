@@ -15,8 +15,6 @@ import { toast, Toaster } from "react-hot-toast";
 import { FaRegStar, FaStar } from "react-icons/fa";
 
 const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
-  console.log(isLoading);
-
   // DELETE hook from rtk query
   const [deleteThis] = useDeleteTaskMutation();
   // add task important hook from rtk query

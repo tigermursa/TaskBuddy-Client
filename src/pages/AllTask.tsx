@@ -16,7 +16,7 @@ const AllTask = () => {
   const filteredTasks = taskData?.filter(
     (task: { email: string }) => task.email === email?.email
   );
-console.log(filteredTasks)
+
   return (
     <div className="h-screen">
       <div className="mb-9 flex items-center justify-between ">
