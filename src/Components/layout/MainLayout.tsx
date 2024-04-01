@@ -2,6 +2,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, MenuProps, theme } from "antd";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { LoggedIn } from "../../utils/isUserLoggedIn";
 
 const { Content, Sider } = Layout;
 
@@ -24,7 +25,7 @@ const items: MenuProps["items"] = [
 ];
 const MainLayout = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-
+  const userData = LoggedIn();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -32,6 +33,7 @@ const MainLayout = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    window.location.reload();
   };
 
   return (
@@ -55,7 +57,11 @@ const MainLayout = () => {
             fontSize: "24px",
           }}
         >
-          {isLoggedIn ? <h1>Mursalin</h1> : <h1>Task Buddy</h1>}
+          {isLoggedIn ? (
+            <h1>{userData?.email.slice(0, 4)}</h1>
+          ) : (
+            <h1>Task Buddy</h1>
+          )}
 
           {isLoggedIn ? (
             <button

@@ -3,6 +3,7 @@ import { useAddTaskMutation } from "../../redux/features/task/taskApi";
 import { useEffect, useState } from "react";
 import { decodedToken } from "../../utils/jwt";
 import { getFromLocalStorage } from "../../utils/local-storage";
+import { toast, Toaster } from "react-hot-toast";
 
 interface FormData {
   title: string;
@@ -47,13 +48,11 @@ const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
       //success=response.data.message$success
       if ("data" in response && response.data.success) {
         setOpen(false);
-        console.log(response.data.message);
-        console.log(data);
+         toast(response.data.message);
 
         reset();
       } else if ("data" in response && response.data.error) {
-        console.log(response.data.error);
-        console.log(response.data.message);
+        toast(response.data.error);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -77,6 +76,7 @@ const AddTaskForm: React.FC<AddModalProps> = ({ setOpen }) => {
 
   return (
     <div>
+      <Toaster />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label

@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   DeleteOutlined,
   FormatPainterOutlined,
@@ -13,6 +14,10 @@ import {
 import UpdateModal from "../Modals/UpdateModal/UpdateModal";
 import AddTaskCard from "../AddTaskCard/AddTaskCard";
 import { Tasks } from "../../../types/taskTypes";
+import { toast, Toaster } from "react-hot-toast";
+
+
+const notify = () => toast("Here is your toast.");
 
 const TaskCard = () => {
   // Data getting hook from rtk query
@@ -61,6 +66,7 @@ const TaskCard = () => {
   return (
     <>
       <div className="grid gap-4 md:gap-7 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+      <Toaster />
         {tasks?.map((task: Tasks) => (
           <div key={task._id} className="relative">
             <div className="border max-w-[20rem] h-[11rem] lg:max-w-[24rem] p-4 rounded-md shadow-md shadow-gray-600">
@@ -96,8 +102,8 @@ const TaskCard = () => {
                             onClick={() => deleteData(task._id)}
                           />
                         </button>
-                        <button className="hover:text-red-600 text-orange-300 ">
-                          <StarOutlined />
+                        <button  className="hover:text-red-600 text-orange-300 ">
+                          <StarOutlined  onClick={notify} />
                         </button>
                       </div>
                     </div>
