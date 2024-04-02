@@ -8,11 +8,8 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { Tasks } from "../types/taskTypes";
 import { LoggedIn } from "../utils/isUserLoggedIn";
 import toast, { Toaster } from "react-hot-toast";
-import useComponentWidth from "../hooks/useComponentWidth";
 
 const InCompleteTask = () => {
-  //to make blur when side bar opens
-  const { componentWidth } = useComponentWidth();
   //hooks
   const [completeThis] = useStatusMutation();
   const [deleteThis] = useDeleteTaskMutation();
@@ -56,7 +53,7 @@ const InCompleteTask = () => {
 
   return (
     <>
-      <div className={`h-screen ${componentWidth <= 150 ? "blur-phone" : ""}`}>
+      <div className={`h-screen `}>
         <Toaster />
         <div className="mb-9 flex items-center justify-between ">
           <h1 className="ubuntu-bold text-2xl">Incomplete Tasks</h1>

@@ -11,7 +11,7 @@ import { Tasks } from "../types/taskTypes";
 const AllTask = () => {
   const [open, setOpen] = useState(false);
   //to make blur when side bar opens
-  const { componentWidth } = useComponentWidth();
+  const { componentWidth, componentRef } = useComponentWidth();
   const { data, isLoading, isError } = useGetTaskDataQuery("");
   const taskData = data?.data.tasks;
   const email = LoggedIn();
@@ -33,7 +33,7 @@ const AllTask = () => {
           className="text-3xl cursor-pointer"
         />
       </div>
-      <div>
+      <div ref={componentRef}>
         <TaskCard
           data={filteredTasks}
           isLoading={isLoading}

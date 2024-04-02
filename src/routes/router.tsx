@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import AllTask from "../pages/AllTask";
-import CompleteTask from "../pages/CompleteTask";
 import App from "../App";
 import RegisterForm from "../Components/form/Auth/RegisterForm";
 import LoginForm from "../Components/form/Auth/LoginForm";
 import ProtectedRouteProvider from "../lib/Provider/ProtectedRouteProvider";
-import ImportantTask from "../pages/ImportantTask";
-import InCompleteTask from "../pages/InCompleteTask";
 import NotFoundPage from "../pages/NotFoundPage";
+import Complete from "../pages/BlurEffectPages/Complete";
+import Important from "../pages/BlurEffectPages/Important";
+import Incomplete from "../pages/BlurEffectPages/Incomplete";
 
 const router = createBrowserRouter([
   {
@@ -25,15 +25,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/completed",
-        element: <CompleteTask />,
+        element: <Complete />,
       },
       {
         path: "/important",
-        element: <ImportantTask />,
+        element: <Important />,
       },
       {
         path: "/incomplete",
-        element: <InCompleteTask />,
+        element: <Incomplete />,
       },
     ],
   },
