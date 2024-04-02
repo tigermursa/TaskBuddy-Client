@@ -7,6 +7,8 @@ import { LoggedIn } from "../utils/isUserLoggedIn";
 import Progressbar from "../Components/ui/Progress/Progressbar";
 import useComponentWidth from "../hooks/useComponentWidth";
 import { Tasks } from "../types/taskTypes";
+import { Button } from "antd";
+import DrawerAnt from "../Components/ui/Drawer/Drawer";
 
 const AllTask = () => {
   const [open, setOpen] = useState(false);
@@ -15,17 +17,28 @@ const AllTask = () => {
   const { data, isLoading, isError } = useGetTaskDataQuery("");
   const taskData = data?.data.tasks;
   const email = LoggedIn();
-
+  const [openDrawer, setOpenDrawer] = useState(false);
   const filteredTasks = taskData?.filter(
     (task: Tasks) => task.email === email?.email
   );
+
+  const showDrawer = () => {
+    setOpenDrawer(true);
+  };
+
+  const onCloseDrawer = () => {
+    setOpenDrawer(false);
+  };
 
   return (
     <div className={`h-screen ${componentWidth <= 150 ? "blur-phone" : ""}`}>
       <div className="mb-9 flex items-center justify-between ">
         <div className="flex gap-6 items-center">
-          <h1 className="ubuntu-bold text-2xl">My All Tasks</h1>
+          <h1 className="ubuntu-bold text-lg md:text-2xl"> All Tasks</h1>
           <Progressbar />
+          <Button type="primary" className="me-4" onClick={showDrawer}>
+            Calender
+          </Button>
         </div>
 
         <PlusCircleOutlined
@@ -41,6 +54,7 @@ const AllTask = () => {
         />
       </div>
       <AddModal open={open} setOpen={setOpen} />
+      <DrawerAnt open={openDrawer} onClose={onCloseDrawer} />
     </div>
   );
 };
