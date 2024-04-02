@@ -94,7 +94,7 @@ const ImportantTask = () => {
                           </button>
                         )}
 
-                        <div className="flex gap-4 text-xl items-center  justify-center p-1">
+                        <div className="flex gap-4 text-xl items-center  justify-center p-1 ">
                           <button className="hover:text-green-600 hidden">
                             <FormatPainterOutlined
                             // onClick={() => handleUpdateClick(task)}

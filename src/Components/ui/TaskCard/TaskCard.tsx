@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { DeleteOutlined, FormatPainterOutlined } from "@ant-design/icons";
 import loader from "../../../assets/images/Ellipsis@1x-1.0s-200px-200px.svg";
 import {
@@ -12,7 +12,7 @@ import { TaskDataProps, Tasks } from "../../../types/taskTypes";
 import { toast, Toaster } from "react-hot-toast";
 import { FaRegStar, FaStar } from "react-icons/fa";
 
-import { Pagination } from "antd";
+import { Pagination, Tooltip } from "antd";
 
 const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
   const [deleteThis] = useDeleteTaskMutation();
@@ -22,6 +22,8 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
   const [selectedTask, setSelectedTask] = useState<Tasks | null>(null);
   const [currentPage, setCurrentPage] = useState(1); // Changed default page to 1
   const perPage = 7; // Change this according to your desired items per page
+
+  const color = ["purple"];
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -63,7 +65,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
     importantThis(options);
   };
 
-  //task complete 
+  //task complete
   const complete = async (id: string) => {
     const options = {
       id: id,
@@ -118,7 +120,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                         >
                           Incomplete
                         </button>
-                      )} 
+                      )}
 
                       <div className="flex gap-4 text-xl items-center  justify-center p-1">
                         <button className="hover:text-green-600">
@@ -133,16 +135,28 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                           <DeleteOutlined />
                         </button>
                         {task.isImportant ? (
-                          <button className="text-orange-400 hover:text-orange-300">
-                            <FaStar onClick={() => makeImportant(task._id)} />
-                          </button>
+                          <Tooltip
+                            title="Important Task"
+                            color={color[0]}
+                            key={color[0]}
+                          >
+                            <button className="text-orange-400 hover:text-orange-300">
+                              <FaStar onClick={() => makeImportant(task._id)} />
+                            </button>
+                          </Tooltip>
                         ) : (
-                          <button>
-                            <FaRegStar
-                              className="text-orange-400 hover:text-orange-300"
-                              onClick={() => makeImportant(task._id)}
-                            />
-                          </button>
+                          <Tooltip
+                            title="Important Task"
+                            color={color[0]}
+                            key={color[0]}
+                          >
+                            <button>
+                              <FaRegStar
+                                className="text-orange-400 hover:text-orange-300"
+                                onClick={() => makeImportant(task._id)}
+                              />
+                            </button>
+                          </Tooltip>
                         )}
                       </div>
                     </div>
@@ -172,7 +186,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
       </div>
       <div className=" mt-20 pb-20 text-center">
         <Pagination
-        className=""
+          className=""
           defaultCurrent={1}
           total={data.length}
           pageSize={perPage}
