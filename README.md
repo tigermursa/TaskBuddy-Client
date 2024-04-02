@@ -4,7 +4,7 @@ Task Buddy is a task management application designed to streamline your producti
 
 ## Live Hosted Link
 
-[Task Buddy - https://task-buddy-client.vercel.app/](#)
+[https://task-buddy-client.vercel.app/]
 
 ## Main Features
 
