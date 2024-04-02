@@ -1,18 +1,10 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  useLoginMutation,
-  useRegisterMutation,
-} from "../../../redux/features/auth/authApi";
+import { useLoginMutation, useRegisterMutation } from "../../../redux/features/auth/authApi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { RegistrationFormData } from "../../../types/taskTypes";
-import { useState } from "react";
 import { setToLocalStorage } from "../../../utils/local-storage";
-
-export type LoginFormData = {
-  email: string;
-  password: string;
-};
 
 const RegisterForm: React.FC = () => {
   const {
@@ -55,9 +47,18 @@ const RegisterForm: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const uploadImage = async () => {
+      if (image) {
+        await saveImage();
+      }
+    };
+
+    uploadImage();
+  }, [image]);
+
   const onSubmit = async (data: RegistrationFormData) => {
     try {
-      await saveImage();
       const formDataWithImageUrl = {
         ...data,
         userImage: url,
@@ -65,9 +66,6 @@ const RegisterForm: React.FC = () => {
 
       const response = await addData(formDataWithImageUrl);
       if ("data" in response && response.data.success) {
-        console.log(response.data.data.password);
-        console.log(response.data.data.email);
-        // loginData = {email:response.data.data.email.password:response.data.data.password}
         toast.success(response.data.message);
         const result = await addLoginData({
           email: response.data.data.email,
@@ -80,7 +78,7 @@ const RegisterForm: React.FC = () => {
           navigate("/");
         }
       } else if ("data" in response && response.data.error) {
-        toast(response.data.error);
+        toast.error(response.data.error);
       }
     } catch (error) {
       console.error("Error adding data:", error);
@@ -172,7 +170,7 @@ const RegisterForm: React.FC = () => {
 
           <div className="mt-6 flex justify-center">
             <button type="submit" className="btn-optional" disabled={isLoading}>
-              {isLoading ? "Loading..." : "Register"}
+              {isLoading ? "Please wait.." : "Register"}
             </button>
           </div>
         </form>
