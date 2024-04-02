@@ -90,13 +90,26 @@ const RegisterForm: React.FC = () => {
     }
   };
 
+  //form validation codes
   const renderError = (fieldName: keyof RegistrationFormData) => {
     if (errors[fieldName]?.type === "required") {
       return <p className="text-red-500">{`${fieldName} is required`}</p>;
     }
-    if (errors[fieldName]?.type === "min") {
-      return <p className="text-red-500">{errors[fieldName]?.message}</p>;
+    if (errors[fieldName]?.type === "hasCapitalLetter") {
+      return (
+        <p className="text-red-500">
+          Password must contain at least one capital letter
+        </p>
+      );
     }
+    if (errors[fieldName]?.type === "minLength") {
+      return (
+        <p className="text-red-500">
+          Password must be at least 8 characters long
+        </p>
+      );
+    }
+    
     return null;
   };
 
@@ -164,7 +177,11 @@ const RegisterForm: React.FC = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                {...register("password", { required: true })}
+                {...register("password", {
+                  required: true,
+                  minLength: 8,
+                  validate: (value) => /[A-Z]/.test(value),
+                })}
                 className="mt-1 p-2 border rounded-md w-full"
               />
               <button
@@ -172,7 +189,11 @@ const RegisterForm: React.FC = () => {
                 className="absolute top-2 right-3 focus:outline-none"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <FaRegEyeSlash className="mt-2" /> : <FaRegEye className="mt-2" />}
+                {showPassword ? (
+                  <FaRegEyeSlash className="mt-2" />
+                ) : (
+                  <FaRegEye className="mt-2" />
+                )}
               </button>
             </div>
             {renderError("password")}
