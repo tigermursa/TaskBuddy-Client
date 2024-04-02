@@ -129,14 +129,20 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                     <div className="flex justify-between  w-[900]">
                       {task.status ? (
                         <button
-                          onClick={() => complete(task._id)}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            complete(task._id);
+                          }}
                           className={"btn-primary "}
                         >
                           Complete
                         </button>
                       ) : (
                         <button
-                          onClick={() => complete(task._id)}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            complete(task._id);
+                          }}
                           className="btn-secondary "
                         >
                           Incomplete
@@ -153,7 +159,10 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                           />
                         </button>
                         <button
-                          onClick={() => deleteData(task._id)}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            deleteData(task._id);
+                          }}
                           className="hover:text-red-600"
                         >
                           <DeleteOutlined />
@@ -165,7 +174,12 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                             key={color[0]}
                           >
                             <button className="text-orange-400 hover:text-orange-300">
-                              <FaStar onClick={() => makeImportant(task._id)} />
+                              <FaStar
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  makeImportant(task._id);
+                                }}
+                              />
                             </button>
                           </Tooltip>
                         ) : (
@@ -177,7 +191,10 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                             <button>
                               <FaRegStar
                                 className="text-orange-400 hover:text-orange-300"
-                                onClick={() => makeImportant(task._id)}
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  makeImportant(task._id);
+                                }}
                               />
                             </button>
                           </Tooltip>
