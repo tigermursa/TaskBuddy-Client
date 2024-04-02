@@ -15,15 +15,22 @@ const Progressbar: React.FC = () => {
   );
 
   // Calculate the percentage of completed tasks
-  const totalTasks = data?.data?.tasks.filter((task: Tasks) => task.email === email);
+  const totalTasks = data?.data?.tasks.filter(
+    (task: Tasks) => task.email === email
+  );
   const completedPercentage = totalTasks
-    ? (completedTasks?.length / totalTasks.length) * 100
+    ? Math.round((completedTasks?.length / totalTasks.length) * 100)
     : 0;
 
   return (
     <div className="">
       <Flex justify="center" align="center">
-        <Progress type="circle" percent={completedPercentage} strokeWidth={8} size={70} />
+        <Progress
+          type="circle"
+          percent={completedPercentage}
+          strokeWidth={8}
+          size={70}
+        />
       </Flex>
     </div>
   );
