@@ -4,6 +4,7 @@ import TaskCard from "../Components/ui/TaskCard/TaskCard";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useGetTaskDataQuery } from "../redux/features/task/taskApi";
 import { LoggedIn } from "../utils/isUserLoggedIn";
+import Progressbar from "../Components/ui/Progress/Progressbar";
 
 const AllTask = () => {
   //  Add MODAL STATE
@@ -20,7 +21,11 @@ const AllTask = () => {
   return (
     <div className="h-screen">
       <div className="mb-9 flex items-center justify-between ">
-        <h1 className="ubuntu-bold text-2xl">My All Tasks</h1>
+        <div className="flex gap-6 items-center">
+          <h1 className="ubuntu-bold text-2xl">My All Tasks</h1>
+          <Progressbar />
+        </div>
+
         <PlusCircleOutlined
           onClick={() => setOpen(true)}
           className="text-3xl cursor-pointer"
