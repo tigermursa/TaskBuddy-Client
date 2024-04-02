@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useRegisterMutation } from "../../../redux/features/auth/authApi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { RegistrationFormData } from "../../../types/taskTypes";
+import { useState } from "react";
 
 const RegisterForm: React.FC = () => {
   const {
@@ -11,15 +12,53 @@ const RegisterForm: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm<RegistrationFormData>();
+  const navigate = useNavigate();
   const [addData] = useRegisterMutation();
+
+  const [image, setImage] = useState<File | null>(null);
+  const [url, setUrl] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false); // State for loading status
+
+  const saveImage = async () => {
+    if (image) {
+      setIsLoading(true); // Set loading to true when image upload starts
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "taskBuddy");
+      data.append("cloud_name", "dvwmhlyd6");
+
+      try {
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dvwmhlyd6/image/upload",
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+
+        const cloudData = await res.json();
+        setUrl(cloudData.url);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false); // Set loading to false when image upload completes
+      }
+    }
+  };
 
   const onSubmit = async (data: RegistrationFormData) => {
     try {
-      const response = await addData(data);
+      await saveImage();
+      const formDataWithImageUrl = {
+        ...data,
+        userImage: url,
+      };
 
+      const response = await addData(formDataWithImageUrl);
       if ("data" in response && response.data.success) {
-        toast(response.data.message);
+        toast.success(response.data.message);
         reset();
+        navigate("/");
       } else if ("data" in response && response.data.error) {
         toast(response.data.error);
       }
@@ -64,15 +103,17 @@ const RegisterForm: React.FC = () => {
               htmlFor="userImage"
               className="block text-sm font-medium text-gray-600"
             >
-              User Image
+              Image
             </label>
-            <input
-              type="text"
-              id="userImage"
-              {...register("userImage", { required: true })}
-              className="mt-1 p-2 border rounded-md w-full"
-            />
-            {renderError("userImage")}
+            <div>
+              <input
+                type="file"
+                id="userImage"
+                onChange={(e) => setImage(e.target.files?.item(0) || null)}
+                className="mt-1 p-2 border rounded-md w-full"
+              />
+              {renderError("userImage")}
+            </div>
           </div>
           <div className="mb-4">
             <label
@@ -110,11 +151,8 @@ const RegisterForm: React.FC = () => {
           </div>
 
           <div className="mt-6 flex justify-center">
-            <button
-              type="submit"
-              className="btn-optional"
-            >
-              Register
+            <button type="submit" className="btn-optional" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Register"}
             </button>
           </div>
         </form>

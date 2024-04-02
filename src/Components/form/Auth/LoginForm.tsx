@@ -18,7 +18,6 @@ const LoginForm: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const response = await addData(data);
-      console.log(response);
       if ("data" in response && response.data.success) {
         setToLocalStorage("token", response.data.token);
         toast(response.data.message);

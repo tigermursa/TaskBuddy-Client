@@ -47,5 +47,13 @@ export interface UpdateModalProps {
     open: boolean;
     setOpen: (open: boolean) => void;
     selectedTask: Tasks | null;
-  }
-  
+}
+
+
+export interface UserData {
+    email: string;
+    isDeleted: boolean;
+    name: string;
+    password: string;
+    userImage: string;
+}

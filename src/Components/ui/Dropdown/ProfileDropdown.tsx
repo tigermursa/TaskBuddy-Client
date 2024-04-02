@@ -2,6 +2,8 @@ import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import { LoggedIn } from "../../../utils/isUserLoggedIn";
 import Logout from "../Logout/Logout";
+import { useGetUserQuery } from "../../../redux/features/auth/authApi";
+import { UserData } from "../../../types/taskTypes";
 
 const items: MenuProps["items"] = [
   {
@@ -15,7 +17,15 @@ const items: MenuProps["items"] = [
 ];
 
 const DropdownComponent: React.FC = () => {
-  const userData = LoggedIn();
+  const { data } = useGetUserQuery("");
+  const userEmail = LoggedIn();
+  const email = userEmail.email;
+
+  // Filter user data based on the email address
+  const userData = data?.data?.filter(
+    (user: UserData) => user.email === email
+  )[0];
+
   return (
     <>
       <Dropdown
@@ -28,13 +38,10 @@ const DropdownComponent: React.FC = () => {
             <>
               <div className="flex items-center flex-col gap-3 justify-center mt-5 lg:mb-[4rem]">
                 <img
-                  width={80}
-                  className="rounded-full"
-                  src="https://media.gettyimages.com/id/1344327532/photo/studio-portrait-of-attractive-19-year-old-woman-with-brown-hair.jpg?s=612x612&w=gi&k=20&c=OtNj0jF4zDdcJk6m3AJh0nKisEtppI2XFrqS9oqLsF4="
+                  className="rounded-full truncate w-20 h-20 object-cover"
+                  src={userData?.userImage}
                 />
-                <p className="text-lg ubuntu-bold-italic">
-                  {userData?.email.slice(0, -10)}
-                </p>
+                <p className="text-sm ubuntu-bold-italic mt-2">{userData?.name}</p>
               </div>
             </>
           ) : (
