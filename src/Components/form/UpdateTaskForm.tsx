@@ -35,7 +35,7 @@ const UpdateTaskForm: React.FC<AddModalProps> = ({
         setOpen(false);
         toast(response.data.message);
       } else if ("data" in response && response.data.error) {
-        toast(response.data.error);
+        toast(response.data.error); 
       }
     } catch (error) {
       console.error("Update failed:", error);

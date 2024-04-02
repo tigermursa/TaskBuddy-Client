@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { DeleteOutlined, FormatPainterOutlined } from "@ant-design/icons";
+import {
+  ClockCircleOutlined,
+  DeleteOutlined,
+  FormatPainterOutlined,
+} from "@ant-design/icons";
 import loader from "../../../assets/images/Ellipsis@1x-1.0s-200px-200px.svg";
 import {
   useDeleteTaskMutation,
@@ -13,12 +17,14 @@ import { toast, Toaster } from "react-hot-toast";
 import { FaRegStar, FaStar } from "react-icons/fa";
 
 import { Pagination, Tooltip } from "antd";
+import ViewDetailsModal from "../Modals/ViewDetails/ViewDetailsModal";
 
 const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
   const [deleteThis] = useDeleteTaskMutation();
   const [importantThis] = useImportantMutation();
   const [completeThis] = useStatusMutation();
   const [open, setOpen] = useState(false);
+  const [openTaskDetails, setOpenTaskDetails] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Tasks | null>(null);
   const [currentPage, setCurrentPage] = useState(1); // Changed default page to 1
   const perPage = 7; // Change this according to your desired items per page
@@ -78,6 +84,11 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
     setOpen(true);
   };
 
+  const handleTaskViewClick = (task: Tasks) => {
+    setSelectedTask(task);
+    setOpenTaskDetails(true);
+  };
+
   const offset = (currentPage - 1) * perPage;
   const currentPageData = data.slice(offset, offset + perPage);
 
@@ -86,7 +97,11 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
       <div className="grid gap-4 md:gap-7 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
         <Toaster />
         {currentPageData.map((task: Tasks) => (
-          <div key={task._id} className="relative">
+          <div
+            key={task._id}
+            onClick={() => handleTaskViewClick(task)}
+            className="relative cursor-pointer"
+          >
             <div className="border max-w-[20rem] h-[11rem] lg:max-w-[24rem] p-4 rounded-md shadow-md shadow-gray-600">
               <div>
                 <div className="flex justify-between items-center ">
@@ -101,8 +116,15 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
 
                 <div className="">
                   <div>
-                    <h3 className="font-semibold mb-3">
-                      Deadline: {task.deadline}
+                    <h3 className="font-semibold   mb-3">
+                      <ClockCircleOutlined className="me-1" />
+
+                      {task?.deadline
+                        ? new Date(task.deadline).toLocaleDateString("en-US", {
+                            month: "long",
+                            day: "numeric",
+                          })
+                        : ""}
                     </h3>
                     <div className="flex justify-between  w-[900]">
                       {task.status ? (
@@ -124,7 +146,10 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                       <div className="flex gap-4 text-xl items-center  ms-2 me-1  justify-center p-1 ">
                         <button className="hover:text-green-600 ">
                           <FormatPainterOutlined
-                            onClick={() => handleUpdateClick(task)}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              handleUpdateClick(task);
+                            }}
                           />
                         </button>
                         <button
@@ -195,6 +220,11 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
       </div>
 
       <UpdateModal open={open} setOpen={setOpen} selectedTask={selectedTask} />
+      <ViewDetailsModal
+        open={openTaskDetails}
+        setOpen={setOpenTaskDetails}
+        selectedTask={selectedTask}
+      />
     </>
   );
 };
