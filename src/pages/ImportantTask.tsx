@@ -1,10 +1,19 @@
 import { DeleteOutlined, FormatPainterOutlined } from "@ant-design/icons";
-import { useGetTaskDataQuery } from "../redux/features/task/taskApi";
+import {
+  useDeleteTaskMutation,
+  useGetTaskDataQuery,
+  useImportantMutation,
+} from "../redux/features/task/taskApi";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { Tasks } from "../types/taskTypes";
 import { LoggedIn } from "../utils/isUserLoggedIn";
+import toast, { Toaster } from "react-hot-toast";
 
 const ImportantTask = () => {
+  //hooks
+  const [importantThis] = useImportantMutation();
+  const [deleteThis] = useDeleteTaskMutation();
+
   const TokenData = LoggedIn();
   const email = TokenData.email;
   const { data } = useGetTaskDataQuery("");
@@ -20,9 +29,31 @@ const ImportantTask = () => {
       </div>
     );
   }
+
+  //important
+  const makeImportant = async (id: string) => {
+    const options = {
+      id: id,
+    };
+
+    importantThis(options);
+  };
+
+  //delete function
+  const deleteData = async (id: string) => {
+    const options = {
+      id: id,
+    };
+
+    const response = await deleteThis(options);
+    if ("data" in response && response.data.success) {
+      toast(response.data.message);
+    }
+  };
   return (
     <>
       <div className="h-screen">
+        <Toaster />
         <div className="mb-9 flex items-center justify-between ">
           <h1 className="ubuntu-bold text-2xl">Important Tasks ⚡</h1>
         </div>
@@ -64,22 +95,20 @@ const ImportantTask = () => {
                         )}
 
                         <div className="flex gap-4 text-xl items-center  justify-center p-1">
-                          <button className="hover:text-green-600">
+                          <button className="hover:text-green-600 hidden">
                             <FormatPainterOutlined
                             // onClick={() => handleUpdateClick(task)}
                             />
                           </button>
                           <button
-                            //   onClick={() => deleteData(task._id)}
+                            onClick={() => deleteData(task._id)}
                             className="hover:text-red-600"
                           >
                             <DeleteOutlined />
                           </button>
                           {task.isImportant ? (
                             <button className="text-orange-400 hover:text-orange-300">
-                              <FaStar
-                              //  onClick={() => makeImportant(task._id) }
-                              />
+                              <FaStar onClick={() => makeImportant(task._id)} />
                             </button>
                           ) : (
                             <button>

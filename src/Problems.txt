@@ -5,11 +5,11 @@
 5) add category select options (fixed it)
 6) Don't forget to clear all console! 
 7) fix the width of login and register form(fixed it)
-8) show completed task 
-9) show important task 
-10) backend pagination
-11) add user image using cloud
-12)use pro password validation
-13)Improve responsive ness
+8) show completed task  (fixed it)
+9) show important task (fixed it)
+10) backend pagination (fixed it)
+11) add user image using cloud (fixed it)
+12)use pro password validation (fixed it)
+13)Improve responsive ness 
 14)use fragment in all component
 

@@ -1,10 +1,19 @@
 import { DeleteOutlined, FormatPainterOutlined } from "@ant-design/icons";
-import { useGetTaskDataQuery } from "../redux/features/task/taskApi";
+import {
+  useDeleteTaskMutation,
+  useGetTaskDataQuery,
+  useStatusMutation,
+} from "../redux/features/task/taskApi";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { Tasks } from "../types/taskTypes";
 import { LoggedIn } from "../utils/isUserLoggedIn";
+import toast, { Toaster } from "react-hot-toast";
 
 const InCompleteTask = () => {
+  //hooks
+  const [completeThis] = useStatusMutation();
+  const [deleteThis] = useDeleteTaskMutation();
+  
   const TokenData = LoggedIn();
   const email = TokenData.email;
   const { data } = useGetTaskDataQuery("");
@@ -21,9 +30,31 @@ const InCompleteTask = () => {
     );
   }
 
+  //task complete
+  const complete = async (id: string) => {
+    const options = {
+      id: id,
+    };
+
+    completeThis(options);
+  };
+
+  //delete function
+  const deleteData = async (id: string) => {
+    const options = {
+      id: id,
+    };
+
+    const response = await deleteThis(options);
+    if ("data" in response && response.data.success) {
+      toast(response.data.message);
+    }
+  };
+
   return (
     <>
       <div className="h-screen">
+        <Toaster />
         <div className="mb-9 flex items-center justify-between ">
           <h1 className="ubuntu-bold text-2xl">Incomplete Tasks</h1>
         </div>
@@ -50,14 +81,14 @@ const InCompleteTask = () => {
                       <div className="flex justify-between  w-[900]">
                         {task.status ? (
                           <button
-                            //   onClick={() => complete(task._id)}
+                            onClick={() => complete(task._id)}
                             className={"btn-primary"}
                           >
                             Complete
                           </button>
                         ) : (
                           <button
-                            //   onClick={() => complete(task._id)}
+                            onClick={() => complete(task._id)}
                             className="btn-secondary "
                           >
                             Incomplete
@@ -65,14 +96,14 @@ const InCompleteTask = () => {
                         )}
 
                         <div className="flex gap-4 text-xl items-center  justify-center p-1">
-                          <button className="hover:text-green-600">
+                          <button className="hover:text-green-600 hidden">
                             <FormatPainterOutlined
                             // onClick={() => handleUpdateClick(task)}
                             />
                           </button>
                           <button
-                            //   onClick={() => deleteData(task._id)}
-                            className="hover:text-red-600"
+                            onClick={() => deleteData(task._id)}
+                            className="hover:text-red-600 "
                           >
                             <DeleteOutlined />
                           </button>

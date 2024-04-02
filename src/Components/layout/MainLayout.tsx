@@ -1,6 +1,7 @@
 import {
   AlignLeftOutlined,
   CheckCircleOutlined,
+  ExclamationCircleOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, MenuProps, theme } from "antd";
@@ -25,7 +26,7 @@ const items: MenuProps["items"] = [
   {
     key: "003",
     label: <NavLink to={"/incomplete"}>Incomplete</NavLink>,
-    icon: <ThunderboltOutlined />,
+    icon: <ExclamationCircleOutlined />,
   },
   {
     key: "004",

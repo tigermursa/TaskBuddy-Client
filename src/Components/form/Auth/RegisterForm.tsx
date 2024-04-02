@@ -90,26 +90,32 @@ const RegisterForm: React.FC = () => {
     }
   };
 
-  //form validation codes
+  // Custom validation rule for uppercase letter
+  useEffect(() => {
+    register("password", {
+      required: true,
+      minLength: 8,
+      validate: (value) => /[A-Z]/.test(value),
+    });
+  }, [register]);
+
+  // Form validation codes
   const renderError = (fieldName: keyof RegistrationFormData) => {
     if (errors[fieldName]?.type === "required") {
       return <p className="text-red-500">{`${fieldName} is required`}</p>;
     }
-    if (errors[fieldName]?.type === "hasCapitalLetter") {
-      return (
-        <p className="text-red-500">
-          Password must contain at least one capital letter
-        </p>
-      );
-    }
     if (errors[fieldName]?.type === "minLength") {
       return (
         <p className="text-red-500">
-          Password must be at least 8 characters long
+          password must be at least 8 characters long
         </p>
       );
     }
-    
+    if (errors[fieldName]?.type === "validate") {
+      return (
+        <p className="text-red-500">password must contain one capital letter</p>
+      );
+    }
     return null;
   };
 
@@ -177,11 +183,7 @@ const RegisterForm: React.FC = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                {...register("password", {
-                  required: true,
-                  minLength: 8,
-                  validate: (value) => /[A-Z]/.test(value),
-                })}
+                {...register("password")}
                 className="mt-1 p-2 border rounded-md w-full"
               />
               <button

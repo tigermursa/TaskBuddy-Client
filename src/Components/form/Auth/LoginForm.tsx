@@ -17,12 +17,13 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await addData(data); 
+      const response = await addData(data);
       if ("data" in response && response.data.success) {
         setToLocalStorage("token", response.data.token);
-        toast(response.data.message);
+        toast.success(response.data.message);
         reset();
         navigate("/");
+        // toast.success(response.data.message);
       } else if ("error" in response && response.error) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         toast.error((response.error as { data: any }).data.message);

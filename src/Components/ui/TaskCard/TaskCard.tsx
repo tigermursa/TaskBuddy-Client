@@ -42,6 +42,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
     );
   }
 
+  //delete function
   const deleteData = async (id: string) => {
     const options = {
       id: id,
@@ -53,6 +54,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
     }
   };
 
+  //important
   const makeImportant = async (id: string) => {
     const options = {
       id: id,
@@ -61,6 +63,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
     importantThis(options);
   };
 
+  //task complete 
   const complete = async (id: string) => {
     const options = {
       id: id,
@@ -115,7 +118,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                         >
                           Incomplete
                         </button>
-                      )}
+                      )} 
 
                       <div className="flex gap-4 text-xl items-center  justify-center p-1">
                         <button className="hover:text-green-600">
