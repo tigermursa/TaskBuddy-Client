@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLoginMutation, useRegisterMutation } from "../../../redux/features/auth/authApi";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../../../redux/features/auth/authApi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { RegistrationFormData } from "../../../types/taskTypes";
@@ -19,6 +22,9 @@ const RegisterForm: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [url, setUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false); // State for loading status
+
+  // Custom password validation
+  const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   const saveImage = async () => {
     if (image) {
@@ -158,7 +164,18 @@ const RegisterForm: React.FC = () => {
             <input
               type="password"
               id="password"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: true,
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters long",
+                },
+                pattern: {
+                  value: passwordPattern,
+                  message:
+                    "Password must contain at least one uppercase letter and one digit",
+                },
+              })}
               className="mt-1 p-2 border rounded-md w-full"
             />
             {renderError("password")}
