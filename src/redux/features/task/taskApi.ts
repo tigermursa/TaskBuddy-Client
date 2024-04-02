@@ -6,8 +6,8 @@ const taskApi = baseApi.injectEndpoints({
 
         //getting data from database
         getTaskData: builder.query({
-            query: () => ({
-                url: `/api/v1/task/get`,
+            query: ({ page = 1, limit = 30 }) => ({
+                url: `/api/v1/task/get?page=${page}&limit=${limit}`,
                 method: "GET",
             }),
             providesTags: ["tasks"],

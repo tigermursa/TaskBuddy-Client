@@ -1,4 +1,8 @@
-import { UserOutlined } from "@ant-design/icons";
+import {
+  AlignLeftOutlined,
+  CheckCircleOutlined,
+  ThunderboltOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu, MenuProps, theme } from "antd";
 
 import { NavLink, Outlet } from "react-router-dom";
@@ -11,22 +15,17 @@ const items: MenuProps["items"] = [
   {
     key: "001",
     label: <NavLink to={"/"}>All Tasks</NavLink>,
-    icon: <UserOutlined />,
+    icon: <AlignLeftOutlined />,
   },
   {
     key: "002",
     label: <NavLink to={"/completed"}>Completed</NavLink>,
-    icon: <UserOutlined />,
+    icon: <CheckCircleOutlined />,
   },
   {
     key: "003",
     label: <NavLink to={"/important"}>Important</NavLink>,
-    icon: <UserOutlined />,
-  },
-  {
-    key: "004",
-    label: <NavLink to={"/login"}>User</NavLink>,
-    icon: <UserOutlined />,
+    icon: <ThunderboltOutlined />,
   },
 ];
 
