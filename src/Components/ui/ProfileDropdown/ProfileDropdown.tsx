@@ -36,7 +36,7 @@ const DropdownComponent: React.FC = () => {
         <div>
           {userData ? (
             <>
-              <div className="flex items-center flex-col gap-3 justify-center mt-5 lg:mb-[4rem]">
+              <div className="flex items-center flex-col gap-3 justify-center mt-5 mb-20 lg:mb-[4rem]">
                 <img
                   className="rounded-full truncate w-20 h-20 object-cover"
                   src={userData?.userImage}

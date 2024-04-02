@@ -8,7 +8,7 @@ import { Layout, Menu, MenuProps, theme } from "antd";
 
 import { NavLink, Outlet } from "react-router-dom";
 
-import DropdownComponent from "../ui/Dropdown/ProfileDropdown";
+import DropdownComponent from "../ui/ProfileDropdown/ProfileDropdown";
 
 const { Content, Sider } = Layout;
 
