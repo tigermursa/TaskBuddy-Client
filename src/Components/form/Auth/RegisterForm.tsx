@@ -8,6 +8,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { RegistrationFormData } from "../../../types/taskTypes";
 import { setToLocalStorage } from "../../../utils/local-storage";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const RegisterForm: React.FC = () => {
   const {
@@ -21,14 +22,12 @@ const RegisterForm: React.FC = () => {
   const [addLoginData] = useLoginMutation();
   const [image, setImage] = useState<File | null>(null);
   const [url, setUrl] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false); // State for loading status
-
-  // Custom password validation
-  const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const saveImage = async () => {
     if (image) {
-      setIsLoading(true); // Set loading to true when image upload starts
+      setIsLoading(true);
       const data = new FormData();
       data.append("file", image);
       data.append("upload_preset", "taskBuddy");
@@ -48,7 +47,7 @@ const RegisterForm: React.FC = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false); // Set loading to false when image upload completes
+        setIsLoading(false);
       }
     }
   };
@@ -161,23 +160,21 @@ const RegisterForm: React.FC = () => {
             >
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              {...register("password", {
-                required: true,
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters long",
-                },
-                pattern: {
-                  value: passwordPattern,
-                  message:
-                    "Password must contain at least one uppercase letter and one digit",
-                },
-              })}
-              className="mt-1 p-2 border rounded-md w-full"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                {...register("password", { required: true })}
+                className="mt-1 p-2 border rounded-md w-full"
+              />
+              <button
+                type="button"
+                className="absolute top-2 right-3 focus:outline-none"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaRegEyeSlash className="mt-2" /> : <FaRegEye className="mt-2" />}
+              </button>
+            </div>
             {renderError("password")}
           </div>
           <div className="flex text-xs gap-2 text-blue-600">
@@ -187,7 +184,7 @@ const RegisterForm: React.FC = () => {
 
           <div className="mt-6 flex justify-center">
             <button type="submit" className="btn-optional" disabled={isLoading}>
-              {isLoading ? "Please wait.." : "Register"}
+              {isLoading ? "Please wait" : "Register"}
             </button>
           </div>
         </form>

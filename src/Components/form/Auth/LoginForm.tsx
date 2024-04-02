@@ -74,7 +74,7 @@ const LoginForm: React.FC = () => {
               Password
             </label>
             <input
-              defaultValue={"123456"}
+              defaultValue={"Abc123456"}
               type="password"
               id="password"
               {...register("password", { required: true })}
