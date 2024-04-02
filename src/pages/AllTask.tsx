@@ -5,21 +5,23 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import { useGetTaskDataQuery } from "../redux/features/task/taskApi";
 import { LoggedIn } from "../utils/isUserLoggedIn";
 import Progressbar from "../Components/ui/Progress/Progressbar";
+import useComponentWidth from "../hooks/useComponentWidth";
+import { Tasks } from "../types/taskTypes";
 
 const AllTask = () => {
-  //  Add MODAL STATE
   const [open, setOpen] = useState(false);
+  //to make blur when side bar opens
+  const { componentWidth } = useComponentWidth();
   const { data, isLoading, isError } = useGetTaskDataQuery("");
   const taskData = data?.data.tasks;
   const email = LoggedIn();
 
-  // Filtering tasks based on matching email
   const filteredTasks = taskData?.filter(
-    (task: { email: string }) => task.email === email?.email
+    (task: Tasks) => task.email === email?.email
   );
 
   return (
-    <div className="h-screen">
+    <div className={`h-screen ${componentWidth <= 150 ? "blur-phone" : ""}`}>
       <div className="mb-9 flex items-center justify-between ">
         <div className="flex gap-6 items-center">
           <h1 className="ubuntu-bold text-2xl">My All Tasks</h1>

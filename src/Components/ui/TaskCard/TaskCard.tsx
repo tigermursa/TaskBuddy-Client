@@ -33,7 +33,6 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
     return (
       <div className="">
         <img className="w-10" src={loader} alt="loading" />
-        <p>Loading hard</p>
       </div>
     );
   } else if (isError) {
@@ -109,7 +108,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                       {task.status ? (
                         <button
                           onClick={() => complete(task._id)}
-                          className={"btn-primary"}
+                          className={"btn-primary "}
                         >
                           Complete
                         </button>
@@ -122,8 +121,8 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                         </button>
                       )}
 
-                      <div className="flex gap-4 text-xl items-center  ms-2 me-1  justify-center p-1">
-                        <button className="hover:text-green-600">
+                      <div className="flex gap-4 text-xl items-center  ms-2 me-1  justify-center p-1 ">
+                        <button className="hover:text-green-600 ">
                           <FormatPainterOutlined
                             onClick={() => handleUpdateClick(task)}
                           />

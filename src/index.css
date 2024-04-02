@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 /* font */
 * {
   font-family: "Ubuntu", sans-serif;
@@ -170,4 +168,14 @@
 
 .btn-optional:active {
   transform: scale(0.95);
+}
+
+/* for responsive  */
+@media (max-width: 420px) {
+  .blur-phone {
+    --tw-blur: blur(8px);
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+      var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
+      var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+  }
 }
