@@ -58,7 +58,7 @@ const LoginForm: React.FC = () => {
               Email
             </label>
             <input
-              defaultValue={"tasinmir20@gmail.com"}
+              defaultValue={"mursalin@gmail.com"}
               type="email"
               id="email"
               {...register("email", { required: true })}
@@ -74,7 +74,7 @@ const LoginForm: React.FC = () => {
               Password
             </label>
             <input
-              defaultValue={"456654456"}
+              defaultValue={"123456"}
               type="password"
               id="password"
               {...register("password", { required: true })}
