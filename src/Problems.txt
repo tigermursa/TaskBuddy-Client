@@ -10,6 +10,6 @@
 10) backend pagination (fixed it)
 11) add user image using cloud (fixed it)
 12)use pro password validation (fixed it)
-13)Improve responsive ness 
-14)use fragment in all component
+13)Improve responsive ness (fixed it)
+14)use fragment in component (fixed it)
 
