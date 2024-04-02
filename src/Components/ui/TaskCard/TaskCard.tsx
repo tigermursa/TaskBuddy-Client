@@ -122,7 +122,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
                         </button>
                       )}
 
-                      <div className="flex gap-4 text-xl items-center  justify-center p-1">
+                      <div className="flex gap-4 text-xl items-center  ms-2 me-1  justify-center p-1">
                         <button className="hover:text-green-600">
                           <FormatPainterOutlined
                             onClick={() => handleUpdateClick(task)}
