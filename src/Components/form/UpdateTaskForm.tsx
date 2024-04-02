@@ -24,6 +24,7 @@ const UpdateTaskForm: React.FC<AddModalProps> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
   const [updateData, { isLoading }] = useUpdateTaskMutation();
@@ -34,8 +35,9 @@ const UpdateTaskForm: React.FC<AddModalProps> = ({
       if ("data" in response && response.data.success) {
         setOpen(false);
         toast(response.data.message);
+        reset();
       } else if ("data" in response && response.data.error) {
-        toast(response.data.error); 
+        toast(response.data.error);
       }
     } catch (error) {
       console.error("Update failed:", error);
