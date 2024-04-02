@@ -1,5 +1,6 @@
 
 export type Tasks = {
+    email: string;
     _id: string;
     title: string;
     description: string;

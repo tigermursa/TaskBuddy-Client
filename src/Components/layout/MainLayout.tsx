@@ -24,6 +24,11 @@ const items: MenuProps["items"] = [
   },
   {
     key: "003",
+    label: <NavLink to={"/incomplete"}>Incomplete</NavLink>,
+    icon: <ThunderboltOutlined />,
+  },
+  {
+    key: "004",
     label: <NavLink to={"/important"}>Important</NavLink>,
     icon: <ThunderboltOutlined />,
   },

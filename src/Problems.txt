@@ -11,4 +11,5 @@
 11) add user image using cloud
 12)use pro password validation
 13)Improve responsive ness
+14)use fragment in all component
 

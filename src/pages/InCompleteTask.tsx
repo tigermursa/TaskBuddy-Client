@@ -4,26 +4,27 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { Tasks } from "../types/taskTypes";
 import { LoggedIn } from "../utils/isUserLoggedIn";
 
-const ImportantTask = () => {
+const InCompleteTask = () => {
   const TokenData = LoggedIn();
   const email = TokenData.email;
   const { data } = useGetTaskDataQuery("");
-  // Filter tasks where status is true
-  const importantTasks = data?.data?.tasks.filter(
-    (task: Tasks) => task.isImportant && task.email === email
+  // Filter tasks where status is false
+  const incompleteTasks = data?.data?.tasks.filter(
+    (task: Tasks) => !task.status && task.email === email
   );
 
-  if (importantTasks?.length === 0) {
-    return (
-      <div className="h-screen flex justify-center items-center text-lg">
-        <p>No important task yet</p>
-      </div>
-    );
+  if (incompleteTasks?.length === 0) {
+    return <div className="h-screen flex justify-center items-center text-lg">
+        <p>No incomplete task yet</p>
+    </div>;
   }
+
+
+
   return (
     <>
       <div className="grid gap-4 md:gap-7 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-screen">
-        {importantTasks?.map((task: Tasks) => (
+        {incompleteTasks?.map((task: Tasks) => (
           <div key={task._id} className="relative">
             <div className="border max-w-[20rem] h-[11rem] lg:max-w-[24rem] p-4 rounded-md shadow-md shadow-gray-600">
               <div>
@@ -113,4 +114,4 @@ const ImportantTask = () => {
   );
 };
 
-export default ImportantTask;
+export default InCompleteTask;
