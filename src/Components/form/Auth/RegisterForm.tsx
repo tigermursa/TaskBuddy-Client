@@ -1,9 +1,18 @@
 import { useForm } from "react-hook-form";
-import { useRegisterMutation } from "../../../redux/features/auth/authApi";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../../../redux/features/auth/authApi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { RegistrationFormData } from "../../../types/taskTypes";
 import { useState } from "react";
+import { setToLocalStorage } from "../../../utils/local-storage";
+
+export type LoginFormData = {
+  email: string;
+  password: string;
+};
 
 const RegisterForm: React.FC = () => {
   const {
@@ -14,7 +23,7 @@ const RegisterForm: React.FC = () => {
   } = useForm<RegistrationFormData>();
   const navigate = useNavigate();
   const [addData] = useRegisterMutation();
-
+  const [addLoginData] = useLoginMutation();
   const [image, setImage] = useState<File | null>(null);
   const [url, setUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false); // State for loading status
@@ -56,9 +65,20 @@ const RegisterForm: React.FC = () => {
 
       const response = await addData(formDataWithImageUrl);
       if ("data" in response && response.data.success) {
+        console.log(response.data.data.password);
+        console.log(response.data.data.email);
+        // loginData = {email:response.data.data.email.password:response.data.data.password}
         toast.success(response.data.message);
-        reset();
-        navigate("/");
+        const result = await addLoginData({
+          email: response.data.data.email,
+          password: response.data.data.password,
+        });
+
+        if (result && "data" in result && result.data?.token) {
+          setToLocalStorage("token", result.data.token);
+          reset();
+          navigate("/");
+        }
       } else if ("data" in response && response.data.error) {
         toast(response.data.error);
       }
