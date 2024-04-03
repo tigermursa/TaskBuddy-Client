@@ -31,7 +31,7 @@ const AllTask = () => {
   };
 
   return (
-    <div className={`h-screen ${componentWidth <= 150 ? "blur-phone" : ""}`}>
+    <div className={`h-screen ${componentWidth <= 150 ? "blur-phone " : ""}`}>
       <div className="mb-9 flex items-center justify-between ">
         <div className="flex gap-6 items-center">
           <h1 className="ubuntu-bold text-lg md:text-2xl"> All Tasks</h1>
