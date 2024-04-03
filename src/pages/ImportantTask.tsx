@@ -52,7 +52,7 @@ const ImportantTask = () => {
   };
   return (
     <>
-      <div className={`h-screen `}>
+      <div className={``}>
         <Toaster />
         <div className="mb-9 flex items-center justify-between ">
           <h1 className="ubuntu-bold text-2xl">Important Tasks ⚡</h1>

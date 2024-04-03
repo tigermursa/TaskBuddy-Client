@@ -53,7 +53,7 @@ const InCompleteTask = () => {
 
   return (
     <>
-      <div className={`h-screen `}>
+      <div>
         <Toaster />
         <div className="mb-9 flex items-center justify-between ">
           <h1 className="ubuntu-bold text-2xl">Incomplete Tasks</h1>
