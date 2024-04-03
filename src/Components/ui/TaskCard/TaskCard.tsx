@@ -27,7 +27,7 @@ const TaskCard: React.FC<TaskDataProps> = ({ data, isLoading, isError }) => {
   const [openTaskDetails, setOpenTaskDetails] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Tasks | null>(null);
   const [currentPage, setCurrentPage] = useState(1); // Changed default page 1
-  const perPage = 7; // Change this according to desired items per page
+  const perPage = 11; // Change this according to desired items per page
 
   const color = ["purple"];
 
