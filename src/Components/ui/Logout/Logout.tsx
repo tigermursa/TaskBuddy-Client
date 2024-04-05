@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import { useState } from "react";
 
 const Logout = () => {
@@ -11,12 +12,13 @@ const Logout = () => {
   return (
     <div className=" flex justify-center">
       {isLoggedIn ? (
-        <button
+        <Button
+          type="primary"
           onClick={handleLogout}
-          className="text-xs p-1 bg-slate-500 bg-transparent border rounded-md btn-optional w-full truncate"
+          className="text-sm p-1  border rounded-md  w-full truncate"
         >
           Logout
-        </button>
+        </Button>
       ) : (
         <></>
       )}
