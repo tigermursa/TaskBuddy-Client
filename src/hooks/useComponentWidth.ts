@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 
 const useComponentWidth = () => {
-    const [componentWidth, setComponentWidth] = useState(0); // Initialize with 0
-    const componentRef = useRef(null); // Reference to the component
+    const [componentWidth, setComponentWidth] = useState(0); //! Initialize with 0
+    const componentRef = useRef(null); //! Reference to the component
 
     useEffect(() => {
         const resizeObserver = new ResizeObserver((entries) => {

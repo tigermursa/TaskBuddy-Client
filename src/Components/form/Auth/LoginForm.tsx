@@ -4,6 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { setToLocalStorage } from "../../../utils/local-storage";
 import toast, { Toaster } from "react-hot-toast";
 import { FormData } from "../../../types/taskTypes";
+import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -14,7 +16,8 @@ const LoginForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>();
   const [addData] = useLoginMutation();
-
+  //show and hide password
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const onSubmit = async (data: FormData) => {
     try {
       const response = await addData(data);
@@ -74,13 +77,25 @@ const LoginForm: React.FC = () => {
             >
               Password
             </label>
-            <input
-              defaultValue={"Abc123456"}
-              type="password"
-              id="password"
-              {...register("password", { required: true })}
-              className="mt-1 p-2 border rounded-md w-full"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                {...register("password")}
+                className="mt-1 p-2 border rounded-md w-full"
+              />
+              <button
+                type="button"
+                className="absolute top-2 right-3 focus:outline-none"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <FaRegEyeSlash className="mt-2" />
+                ) : (
+                  <FaRegEye className="mt-2" />
+                )}
+              </button>
+            </div>
             {renderError("password")}
           </div>
           <div className="flex text-xs gap-2 text-blue-600">
