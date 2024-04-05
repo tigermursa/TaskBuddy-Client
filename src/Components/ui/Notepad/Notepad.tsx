@@ -28,7 +28,7 @@ const Notepad = () => {
       <textarea
         placeholder="Write your note here..."
         className="w-full p-2 mb-4  rounded-md ubuntu-regular-italic text-lg"
-        rows={20} // Adjust the number of rows as needed
+        rows={11}
         value={text}
         onChange={handleChange}
       ></textarea>
