@@ -49,11 +49,23 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto h-screen flex flex-col justify-center items-center">
+    <div className="container mx-auto h-screen flex flex-col justify-center items-center ">
       <Toaster />
-      <h1 className="text-2xl">Login your Account</h1>
-      <div className=" max-w-[500px] shadow-xl p-4 rounded-lg  mt-5 border ">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <div className=" w-[330px] shadow-xl p-4 rounded-lg  mt-5   ">
+        <form onSubmit={handleSubmit(onSubmit)} className="">
+          <div className="flex justify-center items-center mb-4">
+            <img
+              className="w-8"
+              src="https://user-images.githubusercontent.com/69080584/119517399-c6f10280-bda1-11eb-9af9-4bdc197dcd65.png"
+              alt=""
+            />
+            <h1>
+              Task <span className="text-blue-600">B</span>uddy
+            </h1>
+          </div>
+          <div>
+            <h1 className="text-lg">Login your Account</h1>
+          </div>
           <div className="mb-4 pt-5">
             <label
               htmlFor="email"
@@ -80,6 +92,7 @@ const LoginForm: React.FC = () => {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                defaultValue={"Abc123456"}
                 id="password"
                 {...register("password")}
                 className="mt-1 p-2 border rounded-md w-full"
@@ -103,11 +116,7 @@ const LoginForm: React.FC = () => {
             <NavLink to={"/register"}>Register</NavLink>
           </div>
           <div className="mt-6 flex justify-center">
-            <button
-              onClick={() => toast}
-              type="submit"
-              className="btn-optional"
-            >
+            <button onClick={() => toast} type="submit" className="btn-primary">
               Login
             </button>
           </div>
