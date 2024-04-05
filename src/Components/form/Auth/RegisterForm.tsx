@@ -97,6 +97,15 @@ const RegisterForm: React.FC = () => {
       minLength: 8,
       validate: (value) => /[A-Z]/.test(value),
     });
+    register("name", {
+      required: true,
+      pattern: /^[A-Z]/,
+    });
+
+    register("email", {
+      required: true,
+      pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    });
   }, [register]);
 
   // Form validation codes
@@ -115,6 +124,15 @@ const RegisterForm: React.FC = () => {
       return (
         <p className="text-red-500">password must contain one capital letter</p>
       );
+    }
+    if (errors[fieldName]?.type === "pattern") {
+      if (fieldName === "name") {
+        return (
+          <p className="text-red-500">first letter must be capital letter</p>
+        );
+      } else if (fieldName === "email") {
+        return <p className="text-red-500">invalid email format</p>;
+      }
     }
     return null;
   };
@@ -163,6 +181,7 @@ const RegisterForm: React.FC = () => {
             </label>
             <div>
               <input
+                required
                 type="file"
                 id="userImage"
                 onChange={(e) => setImage(e.target.files?.item(0) || null)}
