@@ -33,3 +33,10 @@ Task Buddy is a task management application designed to streamline your producti
 - TypeScript: Ensures type safety and improved development experience.
 - JWT: JSON Web Tokens for secure authentication.
 - Zod Validation: A TypeScript-first schema declaration and validation library.
+
+## To run the application locally, follow these steps
+
+- Clone the repository to your local machine
+- Navigate to the project directory in your terminal or command prompt.
+- Run the command npm install to install the necessary dependencies
+- Once the dependencies are installed, execute npm run dev to start the application locally.
