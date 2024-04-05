@@ -170,11 +170,6 @@
   transform: scale(0.95);
 }
 
-
-
-
-
-
 /* for responsive  */
 @media (max-width: 420px) {
   .blur-phone {
