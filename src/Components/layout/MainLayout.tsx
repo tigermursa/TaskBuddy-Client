@@ -9,6 +9,7 @@ import { Layout, Menu, MenuProps, theme } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
 
 import DropdownComponent from "../ui/ProfileDropdown/ProfileDropdown";
+import Test from "../ui/DataShowTemp/Test";
 
 const { Content, Sider } = Layout;
 
@@ -61,6 +62,7 @@ const MainLayout = () => {
           items={items}
         />
       </Sider>
+      <Test />
       <Layout>
         {/* backgroundColor:"gray" */}
         <Content style={{ margin: "10px 24px 0" }}>
