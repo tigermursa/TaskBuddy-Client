@@ -62,7 +62,7 @@ const MainLayout = () => {
           items={items}
         />
       </Sider>
-      <Test />
+      {/* <Test /> */}
       <Layout>
         {/* backgroundColor:"gray" */}
         <Content style={{ margin: "10px 24px 0" }}>
