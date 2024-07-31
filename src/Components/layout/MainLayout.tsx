@@ -9,6 +9,7 @@ import { Layout, Menu, MenuProps, theme } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
 
 import DropdownComponent from "../ui/ProfileDropdown/ProfileDropdown";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 // import Test from "../ui/DataShowTemp/Test";
 
 const { Content, Sider } = Layout;
@@ -27,12 +28,17 @@ const items: MenuProps["items"] = [
   {
     key: "003",
     label: <NavLink to={"/incomplete"}>Incomplete</NavLink>,
-    icon: <ExclamationCircleOutlined />,
+    icon: <AiOutlineCloseCircle />,
   },
   {
     key: "004",
     label: <NavLink to={"/important"}>Important</NavLink>,
     icon: <ThunderboltOutlined />,
+  },
+  {
+    key: "005",
+    label: <NavLink to={"/about"}>About</NavLink>,
+    icon: <ExclamationCircleOutlined />
   },
 ];
 
@@ -62,7 +68,7 @@ const MainLayout = () => {
           items={items}
         />
       </Sider>
-   
+
       <Layout>
         {/* backgroundColor:"gray" */}
         <Content style={{ margin: "10px 24px 0" }}>

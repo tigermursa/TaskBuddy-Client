@@ -8,6 +8,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import Complete from "../pages/BlurEffectPages/Complete";
 import Important from "../pages/BlurEffectPages/Important";
 import Incomplete from "../pages/BlurEffectPages/Incomplete";
+import About from "../pages/About";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/incomplete",
         element: <Incomplete />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
     ],
   },
